@@ -1,57 +1,46 @@
-/* --- CHARTE GRAPHIQUE --- */
+/* --- CHARTE GRAPHIQUE ---  */
 :root {
-
-    --dreux-blue: #1A468C;    /* Couleur identitaire */
-    --yum-orange: #FF6600;    /* Couleur d'action/Appétit */
-    --bg-cream:   #F4F4F4;    /* Fond */
-    --text-dark:  #2C3E50;    /* Texte */
-    --brick-red:  #C0392B;    /* Accents */
-
-    /* Polices */
-    --font-title: 'Oswald', sans-serif;
-    --font-text:  'Roboto', sans-serif;
+    /* TO DO : Définir tes couleurs ici (ex: via Paletton comme suggéré) */
+    --main-color: #......;  /* Couleur principale */
+    --accent-color: #......; /* Couleur secondaire */
+    --bg-color: #......;    /* Fond */
+    --text-color: #......;  /* Texte */
+    --font-main: 'Arial', sans-serif; /* TO DO : Choisir ta police */
 }
 
 body {
-    background-color: var(--bg-cream);
-    color: var(--text-dark);
-    font-family: var(--font-text);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
 }
 
-h1, h2, h3 {
-    font-family: var(--font-title);
-    color: var(--dreux-blue);
-    text-transform: uppercase; /* Donne un aspect "Enseigne de magasin" */
-}
-
-/* En-tête */
+/* En-tête commun (Navigation) */
 header {
-    background-color: var(--dreux-blue);
-    color: white;
-    /* Une bordure orange en bas pour le style */
-    border-bottom: 5px solid var(--yum-orange); 
+    background-color: var(--main-color);
+    padding: 1rem;
 }
 
-/* Boutons d'action (Commander, Rechercher) */
-.btn {
-    background-color: var(--yum-orange);
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
     color: white;
     font-weight: bold;
-    border-radius: 5px; /* Un peu arrondi comme un burger */
-    text-transform: uppercase;
 }
 
-.btn:hover {
-    background-color: #e65c00; /* Orange un peu plus foncé au survol */
-}
-
-/* Liens de navigation */
-nav a {
+/* Boutons génériques */
+.btn {
+    background-color: var(--accent-color);
     color: white;
-    font-family: var(--font-title);
-    letter-spacing: 1px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
 }
 
-nav a:hover {
-    color: var(--yum-orange); /* Changement de couleur au survol */
-}
+/* TO DO : Ajouter le style pour les formulaires, les cartes de produits, etc. */
