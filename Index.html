@@ -1,41 +1,72 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil - Royal Dreux Burger</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <h1>[LOGO / NOM DU RESTAURANT]</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="menu.html">La Carte</a></li>
-                <li><a href="connexion.html">Connexion</a></li>
-            </ul>
-        </nav>
-    </header>
+/* Définition des couleurs de Dreux */
+:root {
+    --bleu-dreux: #0055A4;  /* Bleu Royal */
+    --jaune-dreux: #FFD700; /* Jaune Or */
+    --blanc: #ffffff;
+    --gris-fonce: #333333;
+}
 
-    <main>
-        <section class="search-section">
-            <input type="text" placeholder="Rechercher un plat...">
-            <button class="btn">Rechercher</button>
-        </section>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: var(--gris-fonce);
+}
 
-        <section class="highlights">
-            <h2>Nos Incontournables</h2>
-            <div class="product-grid">
-                <article class="product-card">
-                    <img src="" alt="[Image Plat]">
-                    <h3>[Nom du Plat]</h3>
-                    <p>[Prix] €</p>
-                </article>
-            </div>
-        </section>
-    </main>
+/* Header : Fond bleu avec texte jaune/blanc */
+header {
+    background-color: var(--bleu-dreux);
+    color: var(--jaune-dreux);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    <footer>
-        </footer>
-</body>
-</html>
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: var(--blanc);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav ul li a:hover {
+    color: var(--jaune-dreux); /* Le lien devient jaune au survol */
+}
+
+/* Section de recherche et Boutons */
+.search-section {
+    padding: 40px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.btn {
+    background-color: var(--jaune-dreux);
+    color: var(--bleu-dreux);
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: var(--bleu-dreux);
+    color: var(--jaune-dreux);
+    border: 1px solid var(--jaune-dreux);
+}
+
+/* Cartes produits */
+.product-card h3 {
+    color: var(--bleu-dreux);
+}
+
+.product-card p {
+    font-weight: bold;
+    color: #e67e22; /* Un orange léger pour le prix, typique fast-food */
+}
