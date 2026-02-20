@@ -1,72 +1,110 @@
-/* Définition des couleurs de Dreux */
-:root {
-    --bleu-dreux: #0055A4;  /* Bleu Royal */
-    --jaune-dreux: #FFD700; /* Jaune Or */
-    --blanc: #ffffff;
-    --gris-fonce: #333333;
-}
+<!DOCTYPE html>
+<html lang="fr">
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    color: var(--gris-fonce);
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fc Burger Dreux</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
-/* Header : Fond bleu avec texte jaune/blanc */
-header {
-    background-color: var(--bleu-dreux);
-    color: var(--jaune-dreux);
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+<body>
+    <header>
+        <div class="logo">
+            <h1>FC BURGER DREUX </h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Le Stade (Accueil)</a></li>
+                <li><a href="menu.html">La Compo (Carte)</a></li>
+                <li><a href="connexion.html">Vestiaires (Connexion)</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero-banner">
+            <h2>Prêt pour le coup d'envoi ? ⚽</h2>
+            <p>Les meilleurs burgers de Dreux, livrés plus vite qu'une contre-attaque.</p>
+            <a href="menu.html" class="btn-action">Voir la compo d'équipe</a>
+        </section>
 
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
+        <section class="featured-products">
+            <h2>🏆 Les Titulaires du Jour</h2>
 
-header nav ul li a {
-    color: var(--blanc);
-    text-decoration: none;
-    font-weight: bold;
-}
+            <div class="product-grid">
+                <article class="card">
+                    <h3>LE DROUAIS ROYAL</h3>
+                    <p>Le capitaine de l'attaque.</p>
+                    <span class="price">12.00 €</span>
+                </article>
 
-header nav ul li a:hover {
-    color: var(--jaune-dreux); /* Le lien devient jaune au survol */
-}
+                <article class="card">
+                    <h3>Frites "Penalty"</h3>
+                    <p>Dorées et croustillantes.</p>
+                    <span class="price">4.00 €</span>
+                </article>
 
-/* Section de recherche et Boutons */
-.search-section {
-    padding: 40px;
-    text-align: center;
-    background-color: #f4f4f4;
-}
+                <article class="card">
+                    <h3>Menu "Victoire"</h3>
+                    <p>Burger + Frites + Boisson.</p>
+                    <span class="price">15.00 €</span>
+                </article>
 
-.btn {
-    background-color: var(--jaune-dreux);
-    color: var(--bleu-dreux);
-    border: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-}
+                <article class="card">
+                    <h3>Le "Ballon d'Or" 🧀</h3>
+                    <p>Mega cheeseburger avec sauce secrète.</p>
+                    <span class="price">13.50 €</span>
+                </article>
 
-.btn:hover {
-    background-color: var(--bleu-dreux);
-    color: var(--jaune-dreux);
-    border: 1px solid var(--jaune-dreux);
-}
+                <article class="card">
+                    <h3>Les Ailiers (Wings) 🍗</h3>
+                    <p>6 Ailes de poulet épicées pour l'attaque.</p>
+                    <span class="price">8.00 €</span>
+                </article>
 
-/* Cartes produits */
-.product-card h3 {
-    color: var(--bleu-dreux);
-}
+                <article class="card">
+                    <h3>Salade "Pelouse" 🥗</h3>
+                    <p>100% Végétarienne, fraîche et légère.</p>
+                    <span class="price">9.50 €</span>
+                </article>
 
-.product-card p {
-    font-weight: bold;
-    color: #e67e22; /* Un orange léger pour le prix, typique fast-food */
-}
+                <article class="card">
+                    <h3>Le "Petit Pont" 🧅</h3>
+                    <p>Onion Rings dorés (ça passe entre les jambes !).</p>
+                    <span class="price">4.50 €</span>
+                </article>
+
+                <article class="card">
+                    <h3>Box "3ème Mi-temps" 🍗</h3>
+                    <p>20 Nuggets à partager avec l'équipe.</p>
+                    <span class="price">18.00 €</span>
+                </article>
+
+                <article class="card">
+                    <h3> Hugoat box</h3>
+                    <p>Les saveurs d'Hugo</p>
+                    <span class="price">13.00€</span>
+                </article>
+
+                <article class="card">
+                    <h3>La Coupe du Monde 🍦</h3>
+                    <p>Sundae géant caramel (pour les vainqueurs).</p>
+                    <span class="price">5.00 €</span>
+                </article>
+            </div>
+        </section>
+        <section class="search-section">
+            <h2>Trouve ton match 🍔</h2>
+            <div class="search-box">
+                <input type="text" placeholder="Rechercher un burger...">
+                <button>Go !</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 FC Burger Dreux</p>
+    </footer>
+</body>
+
+</html>
