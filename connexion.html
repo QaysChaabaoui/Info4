@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vestiaires - Connexion</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
+    <header>
+        <div class="logo">
+            <h1>FC BURGER DREUX ⚽</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Le Stade (Accueil)</a></li>
+                <li><a href="menu.html">La Compo (Carte)</a></li>
+                <li><a href="connexion.html" class="active">Vestiaires (Connexion)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="login-section">
+            <div class="login-card">
+                <h2>🚪 Accès Vestiaires</h2>
+                <p>Identifie-toi pour entrer sur la feuille de match.</p>
+
+                <form action="profil.html">
+                    <div class="form-group">
+                        <label for="email">Numéro de Licence (Email)</label>
+                        <input type="email" id="email" placeholder="joueur@fcburger.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Code Tactique (Mot de passe)</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="btn-login">Entrer sur le terrain</button>
+                    
+                    <p class="switch-account">
+                        Pas encore de licence ? <a href="#">Signer mon contrat (Inscription)</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 FC Burger Dreux</p>
+    </footer>
+
+</body>
+</html>
