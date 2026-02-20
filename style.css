@@ -1,46 +1,99 @@
-/* --- CHARTE GRAPHIQUE ---  */
-:root {
-    /* TO DO : Définir tes couleurs ici (ex: via Paletton comme suggéré) */
-    --main-color: #......;  /* Couleur principale */
-    --accent-color: #......; /* Couleur secondaire */
-    --bg-color: #......;    /* Fond */
-    --text-color: #......;  /* Texte */
-    --font-main: 'Arial', sans-serif; /* TO DO : Choisir ta police */
+/* --- Styles Généraux (Rappel: Structure de règle) --- */
+/* On utilise le sélecteur universel pour la base [cite: 197] */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-main);
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif; /* Police standard sécurisée [cite: 606] */
+    background-color: #f4f4f4; /* Valeur hexadécimale simple [cite: 558] */
+    color: #333;
+    line-height: 1.6; /* Améliore la lisibilité [cite: 904] */
 }
 
-/* En-tête commun (Navigation) */
+/* --- En-tête (Header) --- */
 header {
-    background-color: var(--main-color);
-    padding: 1rem;
+    background-color: #0055A4; /* Bleu plus classique [cite: 584] */
+    color: white;
+    padding: 20px; /* Marges intérieures [cite: 1708] */
+    text-align: center; /* Alignement du texte [cite: 792] */
+    border-bottom: 3px solid #F1C40F; /* Bordure simple [cite: 1053] */
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
+    list-style-type: none; /* Enlever les puces [cite: 1393] */
+    display: flex; /* Utilisation du flux flexible [cite: 1679] */
+    justify-content: center;
     gap: 20px;
 }
 
 nav a {
-    text-decoration: none;
     color: white;
+    text-decoration: none; /* Pas de soulignement [cite: 830] */
+    font-weight: bold; /* Texte en gras [cite: 661] */
+}
+
+nav a:hover {
+    color: #F1C40F; /* Changement au survol [cite: 491] */
+}
+
+/* --- Section Recherche --- */
+.search-section {
+    background-color: #0055A4;
+    padding: 40px;
+    margin: 20px; /* Espace extérieur [cite: 1774] */
+    border-radius: 10px; /* Angles arrondis [cite: 1234] */
+    text-align: center;
+}
+
+.search-box input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+}
+
+/* --- Grille de Produits (Cartes Panini) --- */
+.product-grid {
+    display: grid; /* Utilisation de la grille [cite: 1670] */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style des cartes avec le modèle de boîte [cite: 955] */
+.card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    border-color: #2ECC71; /* Vert au survol [cite: 1055] */
+    transform: translateY(-5px); /* Petit effet de mouvement */
+}
+
+.card img {
+    width: 100%; /* L'image occupe toute la largeur de la boîte [cite: 968] */
+    height: auto;
+    border-radius: 5px;
+}
+
+.price {
+    color: #2ECC71;
+    font-size: 1.2em;
     font-weight: bold;
+    margin-top: 10px;
 }
 
-/* Boutons génériques */
-.btn {
-    background-color: var(--accent-color);
+/* --- Pied de page --- */
+footer {
+    background-color: #333;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
+    padding: 20px;
+    text-align: center;
+    margin-top: 30px;
 }
-
-/* TO DO : Ajouter le style pour les formulaires, les cartes de produits, etc. */
