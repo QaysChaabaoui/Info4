@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signature de Contrat - Inscription</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <header>
@@ -14,22 +16,24 @@
         </div>
         <nav>
             <ul>
-                <li><a href="notation.html">Avis</a></li>
-                <li><a href="index.html">Le Stade</a></li>
+                <li><a href="index.html">Le Stade (Accueil)</a></li>
                 <li><a href="connexion.html" class="active">Vestiaires</a></li>
-                <li><a href="menu.html" class="active">La Compo (Carte)</a></li>
-                <li><a href="livreur.html">Livraisons</a></li>
+                <li><a href="menu.html">La Compo (Carte)</a></li>
                 <li><a href="panier.html">Mon Panier</a></li>
+                <li><a href="admin.html">Coach (admin)</a></li>
+                <li><a href="notation.html">Avis</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="login-section">
-            <div class="login-card" style="max-width: 600px;"> <h2>🖊️ Signer au Club (Inscription)</h2>
+            <div class="login-card" style="max-width: 600px;">
+                <h2>🖊️ Signer au Club (Inscription)</h2>
                 <p>Rejoins l'équipe du FC Burger Dreux !</p>
 
-                <form action="connexion.html"> <div class="form-group">
+                <form action="connexion.html">
+                    <div class="form-group">
                         <label>Nom & Prénom</label>
                         <input type="text" placeholder="Zidane Zinedine" required>
                     </div>
@@ -54,8 +58,13 @@
                         <input type="password" placeholder="••••••••" required>
                     </div>
 
+                    <div class="form-group">
+                        <label>Informations complémentaires (Étage, Digicode...)</label>
+                        <input type="text" placeholder="Ex: Digicode 1234, 2ème étage à gauche" required>
+                    </div>
+
                     <button type="submit" class="btn-login">Valider ma signature</button>
-                    
+
                     <p class="switch-account">
                         Déjà joueur ? <a href="connexion.html">Retour au vestiaire (Connexion)</a>
                     </p>
@@ -69,4 +78,5 @@
     </footer>
 
 </body>
+
 </html>
