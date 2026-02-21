@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Licence Mbappé - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <header>
@@ -14,11 +16,12 @@
         </div>
         <nav>
             <ul>
-                <li><a href="notation.html">Avis</a></li>
-                <li><a href="index.html">Le Stade</a></li>
-                <li><a href="menu.html">La Compo</a></li>
+                <li><a href="index.html">Le Stade (Accueil)</a></li>
+                <li><a href="menu.html">La Compo (Carte)</a></li>
+                <li><a href="connexion.html">Vestiaires (Connexion)</a></li>
+                <li><a href="panier.html">Mon Panier</a></li>
                 <li><a href="admin.html">Bureau du Coach</a></li>
-                <li><a href="livreur.html">Livraisons</a></li>
+                <li><a href="notation.html">Avis</a></li>
             </ul>
         </nav>
     </header>
@@ -26,16 +29,17 @@
     <main>
         <section class="profile-section">
             <h2>👤 Licence de Joueur : Mbappé K.</h2>
-            
+
             <div class="license-card">
                 <div class="license-header">
-                    <img src="https://ui-avatars.com/api/?name=Kylian+Mbappe&background=0055A4&color=fff" alt="Avatar Joueur" class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Kylian+Mbappe&background=0055A4&color=fff"
+                        alt="Avatar Joueur" class="avatar">
                     <div class="player-info">
-                        <h3>Kylian Mbappé</h3>
-                        <p>Poste : Ailier Gauche (Rapide)</p>
+                        <h3>Kylian Mbappé<span class="edit-icon">✏️</span></h3>
+                        <p>Poste : Ailier Gauche <span class="edit-icon">✏️</span></p>
                         <p class="club">Club : FC Burger Dreux</p>
                     </div>
-                    <div class="logo-mini">⚽</div>
+                    <div class="logo-mini"></div>
                 </div>
 
                 <div class="stats-grid">
@@ -53,13 +57,40 @@
                     </div>
                 </div>
 
+                <div class="order-history">
+                    <h3>📜 Derniers Matchs (Commandes)</h3>
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Compo</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10/06/2025</td>
+                                <td>Box 3eme Mi-temps</td>
+                                <td>16.00 €</td>
+                            </tr>
+                            <tr>
+                                <td>23/09/2025</td>
+                                <td>Smash Star</td>
+                                <td>9,00 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="license-footer">
                     <p>Valable pour la saison 2025-2026</p>
                 </div>
             </div>
 
             <div class="actions">
-                <a href="admin.html" class="btn-logout" style="text-decoration: none; background: var(--bleu-dreux); text-align: center;">Retour au Bureau</a>
+                <a href="admin.html" class="btn-logout"
+                    style="text-decoration: none; background: var(--bleu-dreux); text-align: center;">Retour au
+                    Bureau</a>
             </div>
         </section>
     </main>
@@ -69,4 +100,5 @@
     </footer>
 
 </body>
+
 </html>
