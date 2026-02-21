@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Licence - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <header>
@@ -14,12 +16,12 @@
         </div>
         <nav>
             <ul>
-                <li><a href="notation.html">Avis</a></li>
-                <li><a href="index.html">Le Stade (Accueil)</a></li>
+                <li><a href="index.html">Le Stade</a></li>
                 <li><a href="menu.html">La Compo (Carte)</a></li>
-                <li><a href="profil.html" class="active">Ma Licence (Profil)</a></li>
-                <li><a href="livreur.html">Livraisons</a></li>
+                <li><a href="connexion.html">Vestiaires (Connexion)</a></li>
                 <li><a href="panier.html">Mon Panier</a></li>
+                <li><a href="admin.html">Bureau du Coach</a></li>
+                <li><a href="notation.html">Avis</a></li>
             </ul>
         </nav>
     </header>
@@ -27,16 +29,17 @@
     <main>
         <section class="profile-section">
             <h2>👤 Ma Licence de Joueur</h2>
-            
+
             <div class="license-card">
                 <div class="license-header">
-                    <img src="https://ui-avatars.com/api/?name=Zidane+B&background=random" alt="Avatar Joueur" class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Zidane+B&background=random" alt="Avatar Joueur"
+                        class="avatar">
                     <div class="player-info">
-                        <h3>Zinedine Zidane</h3>
-                        <p>Poste : Avant-Centre (Gourmand)</p>
+                        <h3>Zinedine Zidane<span class="edit-icon">✏️</span></h3>
+                        <p>Poste : Avant-Centre (Gourmand)<span class="edit-icon">✏️</span></p>
                         <p class="club">Club : FC Burger Dreux</p>
                     </div>
-                    <div class="logo-mini">⚽</div>
+                    <div class="logo-mini"></div>
                 </div>
 
                 <div class="stats-grid">
@@ -53,6 +56,30 @@
                         <span class="stat-label">Division<br>(Rang)</span>
                     </div>
                 </div>
+                <div class="order-history">
+                    <h3>📜 Derniers Matchs (Commandes)</h3>
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Compo</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>20/02/2025</td>
+                                <td>Hugoat Box</td>
+                                <td>10.00 €</td>
+                            </tr>
+                            <tr>
+                                <td>15/02/2025</td>
+                                <td>Drouais Royal + Frites</td>
+                                <td>14.50 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="license-footer">
                     <p>Valable pour la saison 2025-2026</p>
@@ -60,7 +87,9 @@
             </div>
 
             <div class="actions">
-                <button class="btn-logout">Transfert (Déconnexion)</button>
+                <a href="admin.html" class="btn-logout"
+                    style="text-decoration: none; background: var(--bleu-dreux); text-align: center;">Retour au
+                    Bureau</a>
             </div>
         </section>
     </main>
@@ -70,4 +99,5 @@
     </footer>
 
 </body>
+
 </html>
