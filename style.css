@@ -150,7 +150,6 @@ main {
 
 .filter-btn {
     background: var(--blanc);
-    color: var(--texte);
     border: 2px solid #ddd;
     padding: 10px 22px;
     border-radius: 50px; 
@@ -183,18 +182,18 @@ main {
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-    gap: 25px;
+    gap: 30px;
     padding: 20px;
 }
 
 article.card {
-    background: #fff;
-    border: 8px solid #fff; 
+    background: var(--blanc);
+    border: none; 
     outline: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    padding: 10px;
-    transition: all 0.4s ease;
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    padding: 25px;
+    transition: var(--transition);
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -206,11 +205,14 @@ article.card {
 
 /* Effet de brillance au survol */
 article.card:hover {
-    transform: translateY(-10px) rotate(2deg);
-    box-shadow: 0 15px 35px rgba(0, 85, 164, 0.2);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-strong);
     border-color: var(--jaune-or); 
 }
 
+article.card:hover .card-photo-container img {
+    transform: scale(1.1);
+}
 /* Zone Image */
 .card-photo-container {
     width: 100%;
@@ -229,13 +231,10 @@ article.card:hover {
     transition: transform 0.5s ease;
 }
 
-article.card:hover .card-photo-container img {
-    transform: scale(1.1);
-}
 
 /* Infos de la carte */
 article.card h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: var(--bleu-dreux);
     margin: 5px 0;
     background: rgba(0, 85, 164, 0.05);
@@ -301,7 +300,6 @@ footer {
     background: var(--blanc);
     padding: 2.5rem;
     border-radius: 15px;
-    box-shadow: var(--ombre);
     width: 100%;
     max-width: 450px; 
     text-align: center;
@@ -321,13 +319,11 @@ footer {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    color: var(--texte);
 }
 
 .form-group input {
     width: 100%;
     padding: 12px;
-    border: 2px solid var(--bordure-form);
     border-radius: 8px;
     font-size: 1rem;
 }
@@ -450,7 +446,6 @@ footer {
 }
 
 .btn-logout {
-    background-color: var(--erreur); 
     color: var(--blanc);
     border: none;
     padding: 10px 20px;
@@ -523,7 +518,6 @@ footer {
     background: var(--blanc);
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: var(--ombre);
     margin-top: 20px;
 }
 
@@ -575,27 +569,6 @@ footer {
     transform: scale(1.05);
 }
 
-.product-grid {
-    gap: 30px; 
-    padding: 20px;
-}
-
-article.card {
-    background: var(--blanc);
-    border-radius: 20px; 
-    padding: 25px;
-    border: none; 
-    box-shadow: var(--shadow-soft);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-article.card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-strong);
-}
-
 article.card .price {
     background: linear-gradient(135deg, var(--vert-terrain), #27ae60);
     color: white;
@@ -605,12 +578,6 @@ article.card .price {
     font-weight: 800;
     font-size: 1.2rem;
     margin-top: 15px;
-}
-
-article.card h3 {
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
 }
 
 /* STYLES PROFIL */
