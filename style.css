@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
-/* 2. VARIABLES : Palette EXACTE de la Charte Graphique */
+/* 2. VARIABLES : Palette de la Charte Graphique */
 :root {
     --bleu-dreux: #0055A4;   
     --vert-terrain: #2ECC71; 
@@ -13,7 +13,6 @@
 }
 
 
-/* 3. RESET & BASE */
 * {
     margin: 0;
     padding: 0;
@@ -32,8 +31,7 @@ h1, h2, h3 {
     text-transform: uppercase;
     color: var(--bleu-dreux);
 }
-
-/* 4. HEADER */
+/* HEADER*/
 header {
     background: rgba(0, 85, 164, 0.9); 
     backdrop-filter: blur(10px);     
@@ -89,7 +87,7 @@ nav a:hover {
     color: var(--jaune-or);
 }
 
-/* 6. ZONE PRINCIPALE */
+/* ZONE PRINCIPALE */
 main {
     max-width: 1200px;
     margin: 0 auto;
@@ -136,7 +134,7 @@ main {
     color: white;
 }
 
-/* --- 6.5 FILTRES DE TACTIQUE --- */
+/* FILTRES DE TACTIQUE */
 .filters-section {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -181,7 +179,7 @@ main {
     box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
 }
 
-/* --- 8. CARTES STYLE "PANINI FOOT" --- */
+/* CARTES STYLE "PANINI FOOT" */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
@@ -280,7 +278,7 @@ article.card p {
     font-weight: bold;
     cursor: pointer;
 }
-/* 9. FOOTER */
+/* FOOTER */
 footer {
     text-align: center;
     padding: 2rem;
@@ -290,7 +288,7 @@ footer {
     border-top: 4px solid var(--jaune-or); 
 }
 
-/* --- PAGE CONNEXION (Vestiaires) --- */
+/* PAGE CONNEXION (Vestiaires) */
 
 .login-section {
     display: flex;
@@ -368,7 +366,7 @@ footer {
     text-decoration: none;
 }
 
-/* --- PAGE PROFIL (Licence Joueur) --- */
+/* PAGE PROFIL (Licence Joueur) */
 
 .profile-section {
     display: flex;
@@ -615,7 +613,7 @@ article.card h3 {
     margin-bottom: 10px;
 }
 
-/* --- NOUVEAUX STYLES PROFIL --- */
+/* STYLES PROFIL */
 .edit-icon {
     cursor: pointer;
     font-size: 0.9rem;
@@ -655,6 +653,3 @@ article.card h3 {
 .history-table td {
     padding: 5px 0;
 }
-
-
-
