@@ -31,8 +31,8 @@ notation.html : Système d'avis et d'analyse d'après-match.
 
 style.css : Fichier unique gérant l'intégralité de la charte graphique.
 
-🛠️ Spécifications Techniques
-🎨 Charte Graphique & CSS
+Spécifications Techniques
+Charte Graphique & CSS
 Palette de couleurs : Utilisation de variables CSS (:root) pour une maintenance simplifiée.
 
 Bleu Dreux (#0055A4) : Couleur dominante de l'identité.
@@ -45,12 +45,12 @@ Mise en page : Utilisation intensive de Flexbox pour la navigation et de CSS Gri
 
 Design UI : Effet "Panini" sur les cartes produits avec des transitions fluides et des rotations au survol.
 
-✍️ Typographie
+Typographie
 Titres : 'Kanit' .
 
 Texte : 'Roboto' .
 
-🚀 Instructions de lancement
+Instructions de lancement
 Extraire le dossier compressé.
 
 S'assurer que le dossier img/ contient toutes les ressources visuelles référencées dans le code (ex: drouais-royal.jpg, logo.jpg).
