@@ -1,18 +1,18 @@
-⚽ FC Burger Dreux – Rapport Technique (Phase #1)
+FC Burger Dreux – Rapport Technique (Phase #1)
 Groupe : Chaabaoui Qays, Madrassi Ayman
 
 Date : 22 février 2026
 
-Sujet : Création d'un site vitrine et de commande pour un fast-food immersif sur le thème du football.
+Sujet : Création d'un site et de commande pour un fast-food immersif sur le thème du football.
 
-🏟️ Concept du Projet
+Concept du Projet
 Le projet FC Burger Dreux propose une expérience utilisateur unique en fusionnant la restauration rapide avec les codes visuels d'un club de football professionnel.
 
 Navigation immersive : Les sections classiques sont renommées selon le jargon sportif : "Le Stade" (Accueil), "La Compo" (Menu), "Les Vestiaires" (Connexion/Profil) et le "Bureau du Coach" (Administration).
 
 Identité locale : Le design et les couleurs sont directement inspirés du blason de la ville de Dreux (Bleu Royal et Or).
 
-📂 Structure des Fichiers
+Structure des Fichiers:
 Le projet est composé de 11 pages HTML reliées par une feuille de style centralisée :
 
 Index.html : Page d'accueil avec bannière héroïque et produits phares.
@@ -43,12 +43,12 @@ Jaune Or (#F1C40F) : Couleur d'accent pour les bordures et les hovers.
 
 Mise en page : Utilisation intensive de Flexbox pour la navigation et de CSS Grid pour l'alignement des cartes produits.
 
-Design UI : Effet "Panini" sur les cartes produits avec des transitions fluides et des rotations au survol (rotate(2deg)).
+Design UI : Effet "Panini" sur les cartes produits avec des transitions fluides et des rotations au survol.
 
 ✍️ Typographie
-Titres : 'Kanit' (Style sportif et impactant).
+Titres : 'Kanit' .
 
-Texte : 'Roboto' (Clarté et lisibilité).
+Texte : 'Roboto' .
 
 🚀 Instructions de lancement
 Extraire le dossier compressé.
