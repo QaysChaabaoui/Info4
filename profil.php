@@ -9,22 +9,7 @@
 </head>
 
 <body>
-
-    <header>
-        <div class="logo">
-            <h1>FC BURGER DREUX ⚽</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Le Stade</a></li>
-                <li><a href="menu.html">La Compo (Carte)</a></li>
-                <li><a href="connexion.html">Vestiaires (Connexion)</a></li>
-                <li><a href="panier.html">Mon Panier</a></li>
-                <li><a href="admin.html">Bureau du Coach</a></li>
-                <li><a href="notation.html">Avis</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php require_once('includes/header.php'); ?>
 
     <main>
         <section class="profile-section">
@@ -94,10 +79,9 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 FC Burger Dreux</p>
-    </footer>
+    <?php require_once('includes/footer.php'); ?>
 
 </body>
 
 </html>
+
