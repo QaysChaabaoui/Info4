@@ -1,0 +1,63 @@
+[
+  {
+    "login": "zizou@fcburger.com",
+    "password": "password123",
+    "role": "client",
+    "nom": "Zidane",
+    "prenom": "Zinedine",
+    "adresse": "1 Place du Vieux Pré, 28100 Dreux",
+    "date_inscription": "2025-01-10"
+  },
+  {
+    "login": "km7@psg.fr",
+    "password": "password123",
+    "role": "client",
+    "nom": "Mbappé",
+    "prenom": "Kylian",
+    "adresse": "2 Rue de la Victoire, 28100 Dreux",
+    "date_inscription": "2025-01-15"
+  },
+  {
+    "login": "kb9@mail.com",
+    "password": "password123",
+    "role": "client",
+    "nom": "Benzema",
+    "prenom": "Karim",
+    "adresse": "4 Grande Rue, 28100 Dreux",
+    "date_inscription": "2025-02-01"
+  },
+  {
+    "login": "thierry@mail.com",
+    "password": "password123",
+    "role": "client",
+    "nom": "Henry",
+    "prenom": "Thierry",
+    "adresse": "12 Boulevard des Pros, 28100 Dreux",
+    "date_inscription": "2025-01-05"
+  },
+  {
+    "login": "ribery@mail.com",
+    "password": "password123",
+    "role": "client",
+    "nom": "Ribéry",
+    "prenom": "Franck",
+    "adresse": "15 Avenue du Foot, 28100 Dreux",
+    "date_inscription": "2025-02-10"
+  },
+  {
+    "login": "coach.qays@fcburger.com",
+    "password": "adminpassword",
+    "role": "admin",
+    "nom": "Chaabaoui",
+    "prenom": "Qays",
+    "derniere_connexion": "2026-02-22"
+  },
+  {
+    "login": "coach.ayman@fcburger.com",
+    "password": "adminpassword",
+    "role": "admin",
+    "nom": "Madrassi",
+    "prenom": "Ayman",
+    "derniere_connexion": "2026-02-22"
+  }
+]
