@@ -1,1 +1,24 @@
-
+{
+  "plats": [
+    {"id": 1, "nom": "Le Drouais Royal", "cat": "Attaquant", "prix": 10.50, "desc": "Double steak, fromage local.", "allergenes": "Gluten, Lactose"},
+    {"id": 2, "nom": "Le Ballon d'Or", "cat": "Attaquant", "prix": 11.50, "desc": "Cheeseburger doré à point.", "allergenes": "Lactose"},
+    {"id": 3, "nom": "L'Attaquant de Pointe", "cat": "Attaquant", "prix": 9.90, "desc": "Pimenté aux jalapeños.", "allergenes": "Moutarde"},
+    {"id": 4, "nom": "Le Smash Star", "cat": "Attaquant", "prix": 9.00, "desc": "Steak smashé croustillant.", "allergenes": "Gluten"},
+    {"id": 5, "nom": "Le Kebab du Kop", "cat": "Attaquant", "prix": 6.50, "desc": "Viande grillée et oignons.", "allergenes": "Sésame"},
+    {"id": 6, "nom": "Frites Penalty", "cat": "Défenseur", "prix": 3.00, "desc": "Croustillantes et salées.", "allergenes": "Aucun"},
+    {"id": 7, "nom": "Le Petit Pont", "cat": "Défenseur", "prix": 3.50, "desc": "Onion rings maison.", "allergenes": "Gluten"},
+    {"id": 8, "nom": "Les Ailiers Wings", "cat": "Défenseur", "prix": 4.50, "desc": "Poulet épicé.", "allergenes": "Aucun"},
+    {"id": 9, "nom": "Salade Pelouse", "cat": "Défenseur", "prix": 8.00, "desc": "Mixte de crudités fraîches.", "allergenes": "Aucun"},
+    {"id": 10, "nom": "Nuggets Supporters", "cat": "Défenseur", "prix": 5.00, "desc": "6 pièces de poulet.", "allergenes": "Gluten"},
+    {"id": 11, "nom": "Tiramisu Champion", "cat": "Remplaçant", "prix": 3.50, "desc": "Onctueux et généreux.", "allergenes": "Oeuf, Lactose"},
+    {"id": 12, "nom": "Coupe du Monde", "cat": "Remplaçant", "prix": 4.00, "desc": "Glace artisanale 3 boules.", "allergenes": "Lactose"},
+    {"id": 13, "nom": "Soda Mi-Temps", "cat": "Remplaçant", "prix": 2.00, "desc": "Boisson rafraîchissante.", "allergenes": "Aucun"},
+    {"id": 14, "nom": "Eau de Source", "cat": "Remplaçant", "prix": 1.50, "desc": "Hydratation maximale.", "allergenes": "Aucun"},
+    {"id": 15, "nom": "Cookie Penalty", "cat": "Remplaçant", "prix": 2.50, "desc": "Chocolat et noisettes.", "allergenes": "Fruits à coque"}
+  ],
+  "menus": [
+    {"nom": "Menu Victoire", "prix": 13.00, "items": ["Smash Star", "Frites Penalty", "Soda"]},
+    {"nom": "Hugoat Box", "prix": 10.00, "items": ["Kebab du Kop", "Wings", "Tiramisu"]},
+    {"nom": "Abaddi Box", "prix": 12.00, "items": ["Hot-Dog", "Onion Rings", "Tiramisu"]}
+  ]
+}
