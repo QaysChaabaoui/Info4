@@ -4,26 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fc Burger Dreux</title>
+    <title>Fc Burgeur Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <div class="logo">
-            <h1>Fc Burger Dreux ⚽</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Le Stade (Accueil)</a></li>
-                <li><a href="menu.html">La Compo (Carte)</a></li>
-                <li><a href="connexion.html">Vestiaires (Connexion)</a></li>
-                <li><a href="panier.html">Mon Panier</a></li>
-                <li><a href="admin.html">Coach (admin)</a></li>
-                <li><a href="notation.html">Avis</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php require_once('includes/header.php'); ?>
     <main>
         <section class="hero-banner">
             <h2>Prêt pour le coup d'envoi ? </h2>
@@ -106,9 +92,7 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 FC Burger Dreux</p>
-    </footer>
+    <?php require_once('includes/footer.php'); ?>
 </body>
 
 </html>
