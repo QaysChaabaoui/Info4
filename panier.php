@@ -1,3 +1,12 @@
+<?php 
+require_once('includes/header.php'); 
+
+// Optionnel : Si tu veux que SEULS les clients connectés voient leur panier
+if (!isset($_SESSION['user_nom'])) {
+    header("Location: connexion.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
