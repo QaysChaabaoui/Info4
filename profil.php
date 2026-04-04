@@ -1,87 +1,68 @@
+<?php 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// On vérifie quel profil afficher AVANT d'afficher le menu
+$email_cible = $_GET['email'] ?? $_SESSION['user_login'] ?? null;
+
+if (!$email_cible) {
+    header("Location: index.php");
+    exit();
+}
+
+$utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
+$joueur_fiche = null;
+
+foreach ($utilisateurs as $u) {
+    if ($u['login'] === $email_cible) {
+        $joueur_fiche = $u;
+        break;
+    }
+}
+
+if (!$joueur_fiche) {
+    header("Location: index.php"); // On redirige si le joueur n'existe pas
+    exit();
+}
+
+require_once('includes/header.php'); 
+?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Licence Zidane - FC Burger Dreux</title>
+    <title>Licence de <?php echo $joueur_fiche['nom']; ?> - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <?php require_once('includes/header.php'); ?>
-
     <main>
         <section class="profile-section">
-            <h2>👤 Licence de joueur : Zinedine Z.</h2>
+            <h2>LICENCE DE JOUEUR : 
+                <?php echo $joueur_fiche['prenom'] . " " . substr($joueur_fiche['nom'], 0, 1) . "."; ?>
+            </h2>
 
             <div class="license-card">
                 <div class="license-header">
-                    <img src="https://ui-avatars.com/api/?name=Zidane+B&background=random" alt="Avatar Joueur"
-                        class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($joueur_fiche['prenom'] . '+' . $joueur_fiche['nom']); ?>&background=random" alt="Avatar" class="avatar">
+                    
                     <div class="player-info">
-                        <h3>Zinedine Zidane<span class="edit-icon">✏️</span></h3>
-                        <p>Poste : Avant-Centre (Gourmand)<span class="edit-icon">✏️</span></p>
+                        <h3>
+                            <?php echo $joueur_fiche['prenom'] . " " . $joueur_fiche['nom']; ?>
+                            <span class="edit-icon">✏️</span>
+                        </h3>
+                        <p>Poste : <?php echo ($joueur_fiche['role'] === 'admin' ? 'Coach' : 'Avant-Centre (Gourmand)'); ?> <span class="edit-icon">✏️</span></p>
                         <p class="club">Club : FC Burger Dreux</p>
                     </div>
-                    <div class="logo-mini"></div>
                 </div>
 
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <span class="stat-number">12</span>
-                        <span class="stat-label">Matchs Joués<br>(Commandes)</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number">45</span>
-                        <span class="stat-label">Buts Marqués<br>(Points Fidélité)</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-number">Or</span>
-                        <span class="stat-label">Division<br>(Rang)</span>
-                    </div>
+                <div class="actions">
+                    <a href="admin.php" class="btn-logout" style="text-decoration: none; background: var(--bleu-dreux); text-align: center; display: block; padding: 10px; color: white;">Retour au Bureau</a>
                 </div>
-                <div class="order-history">
-                    <h3>📜 Derniers Matchs (Commandes)</h3>
-                    <table class="history-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Compo</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>20/02/2025</td>
-                                <td>Hugoat Box</td>
-                                <td>10.00 €</td>
-                            </tr>
-                            <tr>
-                                <td>15/02/2025</td>
-                                <td>Drouais Royal + Frites</td>
-                                <td>14.50 €</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="license-footer">
-                    <p>Valable pour la saison 2025-2026</p>
-                </div>
-            </div>
-
-            <div class="actions">
-                <a href="admin.html" class="btn-logout"
-                    style="text-decoration: none; background: var(--bleu-dreux); text-align: center;">Retour au
-                    Bureau</a>
             </div>
         </section>
     </main>
 
     <?php require_once('includes/footer.php'); ?>
-
 </body>
-
 </html>
-
