@@ -1,3 +1,4 @@
+<?php require_once('includes/header.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -96,3 +97,4 @@
 </body>
 
 </html>
+
