@@ -1,3 +1,9 @@
+<?php 
+require_once('includes/header.php'); 
+
+// On vérifie qui parle pour enregistrer l'avis au bon nom
+$nom_joueur = isset($_SESSION['user_nom']) ? $_SESSION['user_nom'] : "Anonyme";
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -73,4 +79,5 @@
     <?php require_once('includes/footer.php'); ?>
 </body>
 </html>
+
 
