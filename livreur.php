@@ -1,86 +1,84 @@
+<?php
+// 1. On inclut le header (qui gère déjà le session_start)
+require_once('includes/header.php');
+
+// 2. Sécurité : Seuls le Livreur et l'Admin entrent sur le terrain
+if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'livreur' && $_SESSION['user_role'] !== 'admin')) {
+    header("Location: index.php");
+    exit();
+}
+
+// 3. Chargement des données
+$commandes = [];
+if (file_exists("data/commandes.json")) {
+    $commandes = json_decode(file_get_contents("data/commandes.json"), true) ?? [];
+}
+$utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livraisons - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <?php require_once('includes/header.php'); ?>
-
     <main>
         <section class="cart-section">
             <h2>🚚 Tactique de Livraison</h2>
             <p>Gère les commandes et lance le GPS pour ne pas finir en hors-jeu.</p>
 
             <div class="cart-container">
-                <h3 style="margin-bottom: 15px; color: var(--bleu-dreux); text-align: left;">⚽ Matchs en cours (À
-                    livrer)</h3>
-                <table class="cart-table">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Client & Téléphone</th>
-                            <th>Adresse & Infos (Étage, Code...)</th>
-                            <th>GPS</th>
-                            <th>État</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#442</td>
-                            <td>Zidane Z. <br> <small>06 00 00 00 00</small></td>
-                            <td>1 Place du Vieux Pré, 28100 Dreux <br>
-                                <small>Etage 2, Code 1234. (Sonner fort)</small>
-                            </td>
-                            <td>
-                                <a href="https://www.google.com/maps" target="_blank" class="btn-select"
-                                    style="background: #4285F4;">📍 Maps</a>
-                            </td>
-                            <td><span style="color: orange;">En préparation...</span></td>
-                            <td><button class="btn-select">Prête</button></td>
-                        </tr>
-
-                        <tr>
-                            <td>#443</td>
-                            <td>Benzema K.</td>
-                            <td>4 Grande Rue Maurice Viollette, 28100 Dreux</td>
-                            <td>
-                                <a href="https://www.google.com/maps/search/?api=1&query=4+Grande+Rue+Maurice+Viollette+28100+Dreux"
-                                    target="_blank" class="btn-select"
-                                    style="text-decoration: none; padding: 5px 10px; background: #4285F4;">📍 Maps</a>
-                            </td>
-                            <td><span style="color: var(--bleu-dreux); font-weight: bold;">Prêt pour l'envoi</span></td>
-                            <td>
-                                <button class="btn-select" style="border-radius: 5px; padding: 5px 10px;">Valider
-                                    Livraison</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3 style="margin-top: 40px; margin-bottom: 15px; color: var(--vert-terrain); text-align: left;">✅
-                    Matchs Terminés (Livrés)</h3>
+                <h3 class="delivery-subtitle">⚽ Matchs en cours (À livrer)</h3>
+                
                 <table class="cart-table">
                     <thead>
                         <tr>
                             <th>N°</th>
                             <th>Client</th>
-                            <th>Heure de fin</th>
-                            <th>Score (Total)</th>
+                            <th>Adresse & Infos</th>
+                            <th>Détails</th>
+                            <th>État</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#440</td>
-                            <td>Mbappé K.</td>
-                            <td>12:30</td>
-                            <td>13.00 €</td>
-                        </tr>
+                        <?php foreach ($commandes as $cmd): ?>
+                            <?php if ($cmd['statut'] === 'Prête' || $cmd['statut'] === 'En livraison'): ?>
+                                <tr>
+                                    <td><strong><?php echo $cmd['id']; ?></strong></td>
+                                    <td><?php echo $cmd['client']; ?></td>
+                                    <td style="font-size: 0.9em;">
+                                        <?php
+                                        $adresse = "Adresse non renseignée";
+                                        foreach ($utilisateurs as $u) {
+                                            if ($u['login'] === $cmd['client']) {
+                                                $adresse = $u['adresse'];
+                                                break;
+                                            }
+                                        }
+                                        echo $adresse;
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn-view-delivery">📄 Voir</a>
+                                    </td>
+                                    <td>
+                                        <span class="label-statut statut-<?php echo str_replace(' ', '-', strtolower($cmd['statut'])); ?>">
+                                            <?php echo $cmd['statut']; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <select class="select-delivery-status">
+                                            <option value="En livraison" <?php echo ($cmd['statut'] == 'En livraison' ? 'selected' : ''); ?>>En route</option>
+                                            <option value="Livrée">✅ Livrée</option>
+                                            <option value="Abandonnée">❌ Abandonnée</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -88,8 +86,6 @@
     </main>
 
     <?php require_once('includes/footer.php'); ?>
-
 </body>
-
 </html>
 
