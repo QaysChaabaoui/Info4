@@ -1,3 +1,13 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION['user_login'])) {
+    header("Location: profil.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,6 +39,13 @@
                     </div>
 
                     <button type="submit" class="btn-login">Entrer sur le terrain</button>
+                    <p class="switch-account" style="margin-top: 20px; text-align: center; font-size: 0.9em;">
+                        Pas encore dans l'effectif ?
+                        <a href="inscription.php"
+                            style="color: var(--bleu-dreux); font-weight: bold; text-decoration: none;">
+                            Signer un contrat ici 🖊️
+                        </a>
+                    </p>
                 </form>
             </div>
         </section>
@@ -37,5 +54,4 @@
     <?php require_once('includes/footer.php'); ?>
 
 </body>
-
 </html>
