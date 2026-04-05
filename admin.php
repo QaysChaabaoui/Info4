@@ -1,13 +1,13 @@
 <?php
-require_once('includes/header.php');
+session_start();
 
-// 1. Sécurité : si l'utilisateur n'est pas "admin", retour à l'accueil
+// 2. rredirige l'utilisateur vers l'accueil s'il n'est pas admin
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
     header("Location: index.php");
-    exit();
+    exit(); // On arrête le script ici pour ne rien charger d'autre
 }
 
-// 2. Récupération dynamique des données
+require_once('includes/header.php');
 $json_content = file_get_contents("data/profil.json");
 $utilisateurs = json_decode($json_content, true);
 ?>
@@ -37,21 +37,31 @@ $utilisateurs = json_decode($json_content, true);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        // 3. Boucle dynamique pour afficher chaque joueur
-                        foreach ($utilisateurs as $u):
-                            ?>
+                        <?php foreach ($utilisateurs as $u): ?>
                             <tr>
                                 <td><?php echo $u['prenom'] . " " . $u['nom']; ?></td>
+
                                 <td><?php echo $u['login']; ?></td>
+
                                 <td>
                                     <span style="color: <?php echo ($u['role'] === 'admin' ? 'red' : 'inherit'); ?>">
                                         <?php echo strtoupper($u['role']); ?>
                                     </span>
                                 </td>
-                                <td>
-                                    <a href="profil.php?email=<?php echo $u['login']; ?>"
-                                        style="color: var(--bleu-dreux);">Voir Fiche</a>
+
+                                <td class="admin-management-cell">
+                                    <a href="profil.php?email=<?php echo $u['login']; ?>" class="btn-admin-view">📄
+                                        Fiche</a>
+
+                                    <button type="button" class="btn-admin-action btn-block">🚫 Bloquer</button>
+
+                                    <select class="admin-status-select">
+                                        <option value="Normal">Normal</option>
+                                        <option value="Premium">Premium</option>
+                                        <option value="VIP">VIP</option>
+                                    </select>
+
+                                    <button type="button" class="btn-admin-action btn-promo">🏷️ Remise</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
