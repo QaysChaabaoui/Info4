@@ -266,7 +266,6 @@ article.card p {
     font-weight: 800;
     font-size: 1rem;
 }
-
 .btn-select {
     background: var(--bleu-dreux);
     color: white;
@@ -619,4 +618,268 @@ article.card .price {
 
 .history-table td {
     padding: 5px 0;
+}
+
+/* Couleurs des timings */
+.urgent { background-color: #ff4757; color: white; padding: 3px 8px; border-radius: 5px; font-weight: bold; }
+.attente { background-color: #f1c40f; color: black; padding: 3px 8px; border-radius: 5px; }
+
+/* Couleurs des statuts */
+.status-a-préparer { border-left: 5px solid #ff4757; padding-left: 10px; color: #ff4757; font-weight: bold; }
+.status-en-cours { color: #3498db; font-weight: bold; }
+.status-en-livraison { color: #2ecc71; }
+
+/* --- INTERFACE RESTAURATEUR --- */
+
+.table-commandes {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+.table-commandes th {
+    background-color: var(--bleu-dreux);
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.table-commandes td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Badges de Timing */
+.badge-timing {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.badge-timing.urgent { background-color: #ff4757; color: white; }
+.badge-timing.attente { background-color: #f1c40f; color: black; }
+
+/* Libellés de Statut */
+.label-statut {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+.statut-a-préparer { color: #ff4757; }
+.statut-en-cours { color: #3498db; }
+.statut-en-livraison { color: #2ecc71; }
+
+/* Sélecteur cuisine */
+.select-statut-cuisine {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+/* --- SECTION PROFIL & HISTORIQUE --- */
+
+.info-detail {
+    margin-top: 8px;
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.historique-container {
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 20px;
+    color: white;
+}
+
+.historique-container h3 {
+    color: #ffffff;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.table-historique {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    color: white;
+}
+
+.table-historique th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.table-historique td {
+    padding: 10px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.select-note {
+    padding: 4px;
+    border-radius: 4px;
+    background: white;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.match-en-cours {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+/* --- CLASSES POUR LA NOTATION & AVIS --- */
+
+.card-notation {
+    max-width: 500px !important;
+    margin: 0 auto;
+}
+
+.section-avis {
+    margin-top: 50px;
+}
+
+.centered-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Styles pour les champs de formulaire personnalisés */
+.form-input-custom {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-input-custom:focus {
+    border-color: var(--bleu-dreux);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 85, 164, 0.2);
+}
+
+/* Style pour les étoiles de notation */
+.stars-display {
+    color: var(--jaune-or);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.supporter-name {
+    font-weight: bold;
+    color: var(--bleu-dreux);
+}
+
+/* --- CLASSES POUR LA NAVIGATION (HEADER) --- */
+
+.nav-profile { 
+    color: var(--jaune-or) !important; 
+}
+
+.nav-admin, .nav-kitchen { 
+    color: #2ecc71 !important; 
+}
+
+.nav-delivery { 
+    color: #f1c40f !important; 
+}
+
+.nav-logout { 
+    color: #ff4757 !important; 
+}
+
+nav ul li a:hover {
+    filter: brightness(1.2);
+    transition: var(--transition);
+}
+
+/* --- ORGANISATION DE LA CUISINE --- */
+
+.container-admin {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.titre-page {
+    margin-bottom: 25px;
+    border-left: 5px solid var(--jaune-or);
+    padding-left: 15px;
+}
+
+.cellule-articles {
+    font-size: 0.85rem;
+    max-width: 250px;
+    color: #555;
+}
+
+.btn-detail {
+    background: #ecf0f1;
+    color: var(--bleu-dreux);
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.btn-detail:hover {
+    background: var(--bleu-dreux);
+    color: white;
+}
+
+.select-livreur {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* --- LIVRAISON --- */
+
+.delivery-subtitle {
+    margin-bottom: 15px;
+    color: var(--bleu-dreux);
+    text-align: left;
+    font-family: 'Kanit', sans-serif;
+}
+
+.btn-view-delivery {
+    background: #95a5a6 !important;
+    color: white !important;
+    text-decoration: none !important;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: bold;
+    display: inline-block;
+    transition: var(--transition);
+}
+
+.btn-view-delivery:hover {
+    background: #7f8c8d !important;
+    transform: scale(1.05);
+}
+
+.select-delivery-status {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-family: inherit;
+    background-color: white;
 }
