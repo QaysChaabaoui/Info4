@@ -1,9 +1,73 @@
 [
-  { "login": "zizou@fcburger.com", "password": "password123", "role": "client", "nom": "Zidane", "prenom": "Zinedine", "adresse": "1 Place du Vieux Pré, Dreux" },
-  { "login": "km7@psg.fr", "password": "password123", "role": "client", "nom": "Mbappé", "prenom": "Kylian", "adresse": "2 Rue de la Victoire, Dreux" },
-  { "login": "kb9@mail.com", "password": "password123", "role": "client", "nom": "Benzema", "prenom": "Karim", "adresse": "4 Grande Rue, Dreux" },
-  { "login": "thierry@mail.com", "password": "password123", "role": "client", "nom": "Henry", "prenom": "Thierry", "adresse": "12 Blvd des Pros, Dreux" },
-  { "login": "ribery@mail.com", "password": "password123", "role": "client", "nom": "Ribéry", "prenom": "Franck", "adresse": "15 Avenue du Foot, Dreux" },
-  { "login": "coach.qays@fcburger.com", "password": "adminpassword", "role": "admin", "nom": "Chaabaoui", "prenom": "Qays" },
-  { "login": "coach.ayman@fcburger.com", "password": "adminpassword", "role": "admin", "nom": "Madrassi", "prenom": "Ayman" }
+    {
+        "login": "zizou@fcburger.com",
+        "password": "password123",
+        "role": "client",
+        "nom": "Zidane",
+        "prenom": "Zinedine",
+        "adresse": "1 Place du Vieux Pré, Dreux"
+    },
+    {
+        "login": "km7@psg.fr",
+        "password": "password123",
+        "role": "client",
+        "nom": "Mbappe",
+        "prenom": "Kylian",
+        "adresse": "2 Rue de la Victoire, Dreux"
+    },
+    {
+        "login": "kb9@mail.com",
+        "password": "password123",
+        "role": "client",
+        "nom": "Benzema",
+        "prenom": "Karim",
+        "adresse": "4 Grande Rue, Dreux"
+    },
+    {
+        "login": "thierry@mail.com",
+        "password": "password123",
+        "role": "client",
+        "nom": "Henry",
+        "prenom": "Thierry",
+        "adresse": "12 Blvd des Pros, Dreux"
+    },
+    {
+        "login": "ribery@mail.com",
+        "password": "password123",
+        "role": "client",
+        "nom": "Ribery",
+        "prenom": "Franck",
+        "adresse": "15 Avenue du Foot, Dreux"
+    },
+    {
+        "login": "coach.qays@fcburger.com",
+        "password": "adminpassword",
+        "role": "admin",
+        "nom": "Chaabaoui",
+        "prenom": "Qays"
+    },
+    {
+        "login": "coach.ayman@fcburger.com",
+        "password": "adminpassword",
+        "role": "admin",
+        "nom": "Madrassi",
+        "prenom": "Ayman"
+    },
+    {
+        "login": "chef@fcburger.com",
+        "password": "123",
+        "role": "restaurateur",
+        "nom": "Guardiola",
+        "prenom": "Pep",
+        "adresse": "7 Rue de la Cuisine, Dreux"
+    }
+    ,
+    {
+        "login": "kante@fcburger.com",
+        "password": "123",
+        "role": "livreur",
+        "nom": "Kante",
+        "prenom": "N'Golo",
+        "adresse": "12 Rue du Vélo, Dreux"
+    }
 ]
