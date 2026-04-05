@@ -19,12 +19,15 @@ foreach ($utilisateurs as $user) {
 
 if ($joueur_trouve) {
     $_SESSION['user_nom'] = $joueur_trouve['nom'];
-    $_SESSION['user_prenom'] = $joueur_trouve['prenom']; // INDISPENSABLE
+    $_SESSION['user_prenom'] = $joueur_trouve['prenom'];
     $_SESSION['user_role'] = $joueur_trouve['role'];
-    // On utilise '??' pour donner une valeur par défaut si la clé 'adresse' est absente
     $_SESSION['user_adresse'] = $joueur_trouve['adresse'] ?? 'Adresse non renseignée';
-    // Redirection
+    $_SESSION['user_login'] = $joueur_trouve['login']; 
+    
     header("Location: profil.php");
+    exit();
+} else {
+    header("Location: connexion.php?error=1");
+    exit();
 }
-exit();
 ?>
