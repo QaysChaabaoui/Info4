@@ -1,5 +1,4 @@
 <?php
-// 1. On inclut le header qui gère DÉJÀ le session_start()
 require_once('includes/header.php'); 
 ?>
 
@@ -26,18 +25,51 @@ require_once('includes/header.php');
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><strong>Le Smash Star</strong></td>
-                            <td>12.00 €</td>
-                            <td>1</td>
-                            <td>12.00 €</td>
-                        </tr>
+                        <?php 
+                        $total_general = 0;
+                        if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])): 
+                            foreach ($_SESSION['panier'] as $id => $details): 
+                                $sous_total = $details['prix'] * $details['quantite'];
+                                $total_general += $sous_total;
+                        ?>
+                            <tr>
+                                <td><strong><?php echo htmlspecialchars($details['nom']); ?></strong></td>
+                                <td><?php echo number_format($details['prix'], 2, ',', ' '); ?> €</td>
+                                <td><?php echo $details['quantite']; ?></td>
+                                <td><?php echo number_format($sous_total, 2, ',', ' '); ?> €</td>
+                            </tr>
+                        <?php 
+                            endforeach; 
+                        else: 
+                        ?>
+                            <tr>
+                                <td colspan="4" style="text-align:center; padding: 30px;">
+                                    Ton banc de touche est vide ! <br>
+                                    <a href="menu.php" style="color: var(--bleu-dreux); font-weight: bold;">Retourner à la Compo</a>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
 
-                <div class="cart-total">
-                    <h3>Total du Match : <span>12.00 €</span></h3>
-                    <button class="btn-checkout">Valider la Commande ⚽</button>
+                <div class="order-timing" style="margin-top: 30px; padding: 20px; border: 2px dashed var(--bleu-dreux); border-radius: 10px; text-align: left;">
+                    <h3 style="margin-bottom: 15px;">⏰ Envoi du Ballon (Timing)</h3>
+                    <form action="paiement.php" method="POST">
+                        <div class="form-group">
+                            <input type="radio" id="immediat" name="timing" value="maintenant" checked>
+                            <label for="immediat">⚡ Préparation Immédiate (Coup d'envoi direct)</label>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            <input type="radio" id="plus-tard" name="timing" value="programmee">
+                            <label for="plus-tard">📅 Programmer le match (Livraison plus tard) :</label>
+                            <input type="datetime-local" name="date_livraison" class="form-input-custom" style="margin-top: 10px;">
+                        </div>
+
+                        <div class="cart-total" style="margin-top: 30px;">
+                            <h3>Total du Match : <span><?php echo number_format($total_general, 2, ',', ' '); ?> €</span></h3>
+                            <button type="submit" class="btn-checkout">Valider & Payer (CYBank) ⚽</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -46,5 +78,3 @@ require_once('includes/header.php');
     <?php require_once('includes/footer.php'); ?>
 </body>
 </html>
-
-
