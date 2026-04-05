@@ -1,67 +1,50 @@
-<?php 
+<?php
+// 1. On inclut le header qui gère DÉJÀ le session_start()
 require_once('includes/header.php'); 
-
-// Optionnel : Si tu veux que SEULS les clients connectés voient leur panier
-if (!isset($_SESSION['user_nom'])) {
-    header("Location: connexion.php");
-    exit();
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Panier - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php require_once('includes/header.php'); ?>
-
     <main>
         <section class="cart-section">
-            <h2>🛒 Feuille de Match (Récapitulatif)</h2>
+            <h2>🛒 Ton Panier (Ta Compo)</h2>
             
             <div class="cart-container">
                 <table class="cart-table">
                     <thead>
                         <tr>
-                            <th>Joueur (Produit)</th>
-                            <th>Quantité</th>
+                            <th>Produit</th>
                             <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>🍔 Le Drouais Royal</td>
-                            <td>2</td>
-                            <td>25.00 €</td>
-                        </tr>
-                        <tr>
-                            <td>🍟 Frites "Penalty"</td>
-                            <td>2</td>
-                            <td>8.00 €</td>
-                        </tr>
-                        <tr>
-                            <td>🥤 Soda "Mi-Temps"</td>
-                            <td>2</td>
-                            <td>5.00 €</td>
+                            <td><strong>Le Smash Star</strong></td>
+                            <td>12.00 €</td>
+                            <td>1</td>
+                            <td>12.00 €</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div class="cart-total">
-                    <h3>Score Final (Total) : <span>38.00 €</span></h3>
-                    <button class="btn-checkout">Siffler la fin du match (Payer)</button>
+                    <h3>Total du Match : <span>12.00 €</span></h3>
+                    <button class="btn-checkout">Valider la Commande ⚽</button>
                 </div>
             </div>
         </section>
     </main>
 
     <?php require_once('includes/footer.php'); ?>
-
 </body>
-
 </html>
 
 
