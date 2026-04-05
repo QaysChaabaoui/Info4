@@ -28,7 +28,7 @@ $plats = $donnees['plats'];
                 <button class="filter-btn">⭐ Spécialités</button>
             </div>
         </section>
-        
+
         <section class="search-section">
             <h2>Trouve ton match 🍔</h2>
             <div class="search-box">
@@ -49,13 +49,17 @@ $plats = $donnees['plats'];
                             </div>
                             <h3><?php echo $p['nom']; ?></h3>
                             <p><?php echo $p['desc']; ?></p>
-                            <div class="price-container">
+                            <form action="ajouter_panier.php" method="GET" class="price-container">
+                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
+                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
+                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
+
                                 <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-                                <a href="ajouter_panier.php?id=<?php echo $p['id']; ?>&nom=<?php echo urlencode($p['nom']); ?>&prix=<?php echo $p['prix']; ?>" 
-                                   class="btn-select" style="text-decoration: none; display: inline-block;">
-                                   Sélectionner
-                                </a>
-                            </div>
+
+                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
+
+                                <button type="submit" class="btn-select">Ajouter</button>
+                            </form>
                         </article>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -71,13 +75,17 @@ $plats = $donnees['plats'];
                             </div>
                             <h3><?php echo $p['nom']; ?></h3>
                             <p><?php echo $p['desc']; ?></p>
-                            <div class="price-container">
+                            <form action="ajouter_panier.php" method="GET" class="price-container">
+                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
+                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
+                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
+
                                 <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-                                <a href="ajouter_panier.php?id=<?php echo $p['id']; ?>&nom=<?php echo urlencode($p['nom']); ?>&prix=<?php echo $p['prix']; ?>" 
-                                   class="btn-select" style="text-decoration: none; display: inline-block;">
-                                   Sélectionner
-                                </a>
-                            </div>
+
+                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
+
+                                <button type="submit" class="btn-select">Ajouter</button>
+                            </form>
                         </article>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -93,13 +101,17 @@ $plats = $donnees['plats'];
                             </div>
                             <h3><?php echo $p['nom']; ?></h3>
                             <p><?php echo $p['desc']; ?></p>
-                            <div class="price-container">
+                            <form action="ajouter_panier.php" method="GET" class="price-container">
+                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
+                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
+                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
+
                                 <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-                                <a href="ajouter_panier.php?id=<?php echo $p['id']; ?>&nom=<?php echo urlencode($p['nom']); ?>&prix=<?php echo $p['prix']; ?>" 
-                                   class="btn-select" style="text-decoration: none; display: inline-block;">
-                                   Sélectionner
-                                </a>
-                            </div>
+
+                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
+
+                                <button type="submit" class="btn-select">Ajouter</button>
+                            </form>
                         </article>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -115,13 +127,17 @@ $plats = $donnees['plats'];
                             </div>
                             <h3><?php echo $p['nom']; ?></h3>
                             <p><?php echo $p['desc']; ?></p>
-                            <div class="price-container">
+                            <form action="ajouter_panier.php" method="GET" class="price-container">
+                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
+                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
+                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
+
                                 <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-                                <a href="ajouter_panier.php?id=<?php echo $p['id']; ?>&nom=<?php echo urlencode($p['nom']); ?>&prix=<?php echo $p['prix']; ?>" 
-                                   class="btn-select" style="text-decoration: none; display: inline-block;">
-                                   Sélectionner
-                                </a>
-                            </div>
+
+                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
+
+                                <button type="submit" class="btn-select">Ajouter</button>
+                            </form>
                         </article>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -131,4 +147,5 @@ $plats = $donnees['plats'];
 
     <?php require_once('includes/footer.php'); ?>
 </body>
+
 </html>
