@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -49,9 +49,13 @@ if (isset($_SESSION['user_login'])) {
                         <input type="text" name="adresse" placeholder="10 rue du Stade, 28100 Dreux" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="position: relative;">
                         <label>Mot de passe</label>
-                        <input type="password" name="password" placeholder="••••••••" required>
+                        <input type="password" name="password" id="password" placeholder="••••••••" required>
+                        <span id="togglePassword"
+                            style="position: absolute; right: 10px; top: 35px; cursor: pointer;">👁️</span>
+                        <small id="char-counter" style="display: block; margin-top: 5px; color: #666;">0 / 20
+                            caractères</small>
                     </div>
 
                     <button type="submit" class="btn-login">Valider ma signature</button>
@@ -67,4 +71,5 @@ if (isset($_SESSION['user_login'])) {
     <?php require_once('includes/footer.php'); ?>
 
 </body>
+
 </html>
