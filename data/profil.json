@@ -60,14 +60,13 @@
         "nom": "Guardiola",
         "prenom": "Pep",
         "adresse": "7 Rue de la Cuisine, Dreux"
-    }
-    ,
+    },
     {
         "login": "kante@fcburger.com",
         "password": "123",
         "role": "livreur",
         "nom": "Kante",
         "prenom": "N'Golo",
-        "adresse": "12 Rue du Vélo, Dreux"
+        "adresse": "12 Rue du Velo, Dreux"
     }
 ]
