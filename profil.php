@@ -67,33 +67,46 @@ require_once('includes/header.php');
                         alt="Avatar" class="avatar">
 
                     <div class="player-info">
-                        <h3>
-                            <?php echo $joueur_fiche['prenom'] . " " . $joueur_fiche['nom']; ?>
-                            <span class="edit-icon">✏️</span>
-                        </h3>
-                        <p>Poste :
-                            <span class="role-display">
-                                <?php
-                                if ($joueur_fiche['role'] === 'admin')
-                                    echo "Coach (Administrateur)";
-                                elseif ($joueur_fiche['role'] === 'restaurateur')
-                                    echo "Chef de Cuisine (Restaurateur)";
-                                elseif ($joueur_fiche['role'] === 'livreur')
-                                    echo "Titulaire (Livreur)";
-                                else
-                                    echo "Avant-Centre (Gourmand)";
-                                ?>
-                            </span>
-                        </p>
-                        <p class="club">Club : FC Burger Dreux</p>
+                        <div id="ajax-response"></div>
 
-                        <p class="info-detail">📧 Email : <strong><?php echo $joueur_fiche['login']; ?></strong></p>
-                        <?php if (isset($joueur_fiche['adresse'])): ?>
-                            <p class="info-detail">
-                                📍 Adresse : <strong><?php echo $joueur_fiche['adresse']; ?></strong>
-                                <span class="edit-icon">✏️</span>
+                        <form id="ajax-profile-form">
+                            <p>
+                                <strong>Prénom :</strong>
+                                <input type="text" name="prenom" value="<?php echo $joueur_fiche['prenom']; ?>"
+                                    required>
                             </p>
-                        <?php endif; ?>
+                            <p>
+                                <strong>Nom :</strong>
+                                <input type="text" name="nom" value="<?php echo $joueur_fiche['nom']; ?>" required>
+                            </p>
+
+                            <p>Poste :
+                                <span class="role-display">
+                                    <?php
+                                    if ($joueur_fiche['role'] === 'admin')
+                                        echo "Coach (Administrateur)";
+                                    elseif ($joueur_fiche['role'] === 'restaurateur')
+                                        echo "Chef de Cuisine (Restaurateur)";
+                                    elseif ($joueur_fiche['role'] === 'livreur')
+                                        echo "Titulaire (Livreur)";
+                                    else
+                                        echo "Avant-Centre (Gourmand)";
+                                    ?>
+                                </span>
+                            </p>
+                            <p class="club">Club : FC Burger Dreux</p>
+                            <p class="info-detail">📧 Email : <strong><?php echo $joueur_fiche['login']; ?></strong></p>
+
+                            <p class="p-adresse">
+                                📍 Adresse :
+                                <input type="text" name="adresse" value="<?php echo $joueur_fiche['adresse'] ?? ''; ?>"
+                                    required>
+                            </p>
+
+                            <button type="submit" class="btn-submit-ajax">
+                                Enregistrer la tactique
+                            </button>
+                        </form>
                     </div>
                 </div>
 
@@ -150,7 +163,35 @@ require_once('includes/header.php');
             </div>
         </section>
     </main>
+    <script>
+        document.getElementById('ajax-profile-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // 1. On bloque le rechargement de la page
 
+            const responseDiv = document.getElementById('ajax-response');
+            var formData = new FormData(this); // 2. On récupère Prénom, Nom et Adresse d'un coup
+
+            // 3. Moteur AJAX 
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'modifier_profil.php', true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    responseDiv.style.display = 'block';
+                    if (xhr.status === 200) {
+                        responseDiv.style.backgroundColor = '#2ecc71'; // Vert terrain
+                        responseDiv.style.color = 'white';
+                        responseDiv.innerHTML = xhr.responseText;
+                    } else {
+                        responseDiv.style.backgroundColor = '#e74c3c'; // Rouge carton
+                        responseDiv.style.color = 'white';
+                        responseDiv.innerHTML = '⚠️ Erreur lors de la mise à jour.';
+                    }
+                }
+            };
+            // 4. Envoi des données en arrière-plan
+            xhr.send(formData);
+        });
+    </script>
     <?php require_once('includes/footer.php'); ?>
 </body>
 
