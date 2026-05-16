@@ -21,11 +21,38 @@ $plats = $donnees['plats'];
         <section class="filters-section">
             <h2>📢 La Tactique (Filtres)</h2>
             <div class="filter-buttons">
-                <button class="filter-btn active">Tout l'effectif</button>
-                <button class="filter-btn">⚽ Attaquants (Burgers)</button>
-                <button class="filter-btn">🛡️ Défenseurs (Snacks)</button>
-                <button class="filter-btn">🍦 Remplaçants (Desserts)</button>
-                <button class="filter-btn">⭐ Spécialités</button>
+                <button class="filter-btn active" data-cat="all">Tout l'effectif</button>
+                <button class="filter-btn" data-cat="Attaquants">⚽ Attaquants (Burgers)</button>
+                <button class="filter-btn" data-cat="Défense">🛡️ Défenseurs (Snacks)</button>
+                <button class="filter-btn" data-cat="Banc">🍦 Remplaçants (Desserts)</button>
+                <button class="filter-btn" data-cat="Spianouch">⭐ Spécialités</button>
+            </div>
+
+            <div class="extra-filters-bar">
+                <div class="extra-filter-group">
+                    <span>Régimes :</span>
+                    <label><input type="checkbox" class="menu-checkbox" name="regime" value="Végétarien">
+                        Végétarien</label>
+                    <label><input type="checkbox" class="menu-checkbox" name="regime" value="Gluten"> Sans
+                        Gluten</label>
+                    <label><input type="checkbox" class="menu-checkbox" name="regime" value="Lactose"> Sans
+                        Lactose</label>
+                </div>
+
+                <div class="extra-filter-group">
+                    <span>Saveurs :</span>
+                    <label><input type="checkbox" class="menu-checkbox" name="gout" value="Épicé"> Épicé 🌶️</label>
+                    <label><input type="checkbox" class="menu-checkbox" name="gout" value="Sucré"> Sucré</label>
+                </div>
+
+                <div class="extra-filter-group">
+                    <span>📊 Tri :</span>
+                    <select id="menu-sort" class="sort-dropdown">
+                        <option value="default">Par défaut</option>
+                        <option value="prix_croissant">Prix : Croissant 📈</option>
+                        <option value="prix_decroissant">Prix : Décroissant 📉</option>
+                    </select>
+                </div>
             </div>
         </section>
 
@@ -38,112 +65,66 @@ $plats = $donnees['plats'];
         </section>
 
         <section class="menu-grid">
-
-            <h3 class="category-title">⚽ Les Attaquants (Nos Burgers)</h3>
-            <div class="product-grid">
-                <?php foreach ($plats as $p): ?>
-                    <?php if ($p['cat'] === "Attaquants"): ?>
-                        <article class="card">
-                            <div class="card-photo-container">
-                                <img src="img/plat_<?php echo $p['id']; ?>.jpg" alt="<?php echo $p['nom']; ?>">
-                            </div>
-                            <h3><?php echo $p['nom']; ?></h3>
-                            <p><?php echo $p['desc']; ?></p>
-                            <form action="ajouter_panier.php" method="GET" class="price-container">
-                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
-                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
-                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
-
-                                <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-
-                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
-
-                                <button type="submit" class="btn-select">Ajouter</button>
-                            </form>
-                        </article>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-
-            <h3 class="category-title" style="margin-top: 3rem;">🛡️ La Défense (Snacks & Partage)</h3>
-            <div class="product-grid">
-                <?php foreach ($plats as $p): ?>
-                    <?php if ($p['cat'] == "Défense"): ?>
-                        <article class="card">
-                            <div class="card-photo-container">
-                                <img src="img/plat_<?php echo $p['id']; ?>.jpg" alt="<?php echo $p['nom']; ?>">
-                            </div>
-                            <h3><?php echo $p['nom']; ?></h3>
-                            <p><?php echo $p['desc']; ?></p>
-                            <form action="ajouter_panier.php" method="GET" class="price-container">
-                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
-                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
-                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
-
-                                <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-
-                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
-
-                                <button type="submit" class="btn-select">Ajouter</button>
-                            </form>
-                        </article>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-
-            <h3 class="category-title" style="margin-top: 3rem;">🍦 Le Banc de Touche (Douceurs)</h3>
-            <div class="product-grid">
-                <?php foreach ($plats as $p): ?>
-                    <?php if ($p['cat'] == "Banc"): ?>
-                        <article class="card">
-                            <div class="card-photo-container">
-                                <img src="img/plat_<?php echo $p['id']; ?>.jpg" alt="<?php echo $p['nom']; ?>">
-                            </div>
-                            <h3><?php echo $p['nom']; ?></h3>
-                            <p><?php echo $p['desc']; ?></p>
-                            <form action="ajouter_panier.php" method="GET" class="price-container">
-                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
-                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
-                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
-
-                                <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-
-                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
-
-                                <button type="submit" class="btn-select">Ajouter</button>
-                            </form>
-                        </article>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-
-            <h3 class="category-title" style="margin-top: 3rem;">⚽ Spianouch Corner (Nos spécialités)</h3>
-            <div class="product-grid">
-                <?php foreach ($plats as $p): ?>
-                    <?php if ($p['cat'] == "Spianouch"): ?>
-                        <article class="card">
-                            <div class="card-photo-container">
-                                <img src="img/plat_<?php echo $p['id']; ?>.jpg" alt="<?php echo $p['nom']; ?>">
-                            </div>
-                            <h3><?php echo $p['nom']; ?></h3>
-                            <p><?php echo $p['desc']; ?></p>
-                            <form action="ajouter_panier.php" method="GET" class="price-container">
-                                <input type="hidden" name="id" value="<?php echo $p['id']; ?>">
-                                <input type="hidden" name="nom" value="<?php echo $p['nom']; ?>">
-                                <input type="hidden" name="prix" value="<?php echo $p['prix']; ?>">
-
-                                <span class="price-pill"><?php echo number_format($p['prix'], 2, ',', ' '); ?> €</span>
-
-                                <input type="number" name="qte" value="1" min="1" class="input-qte-menu">
-
-                                <button type="submit" class="btn-select">Ajouter</button>
-                            </form>
-                        </article>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+            <div id="product-grid" class="product-grid">
+                <?php include('filtrer_menu.php'); // Charge tout l'effectif au début ?>
             </div>
         </section>
     </main>
+
+    <script>
+        let categorieChoisie = "all";
+
+        // Écouteurs sur les boutons de catégorie (Attaquants, Défense, etc.)
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                // Gestion de la classe active d'origine
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // On retient la catégorie du bouton
+                categorieChoisie = this.getAttribute('data-cat');
+                lancerTactiqueAjax();
+            });
+        });
+
+        // Écouteurs sur les cases à cocher et le tri (Prix croissant/décroissant)
+        document.querySelectorAll('.menu-checkbox').forEach(box => {
+            box.addEventListener('change', lancerTactiqueAjax);
+        });
+        document.getElementById('menu-sort').addEventListener('change', lancerTactiqueAjax);
+
+        // 3. Fonction pour lancer l'Ajax et mettre à jour la grille sans recharger la page
+        function lancerTactiqueAjax() {
+            let structureFiltres = {
+                categorie: categorieChoisie,
+                regimes: [],
+                gouts: []
+            };
+
+            // On remplit les tableaux de régimes et de goûts selon les cases cochées
+            document.querySelectorAll('.menu-checkbox:checked').forEach(box => {
+                if (box.name === 'regime') structureFiltres.regimes.push(box.value);
+                if (box.name === 'gout') structureFiltres.gouts.push(box.value);
+            });
+
+            let triActif = document.getElementById('menu-sort').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'filtrer_menu.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    // On injecte les cartes filtrées dans ta grille d'origine
+                    document.getElementById('product-grid').innerHTML = this.responseText;
+                }
+            };
+
+            // On envoie les filtres et le tri sous forme de paramètres POST
+            let parametres = "filtres=" + JSON.stringify(structureFiltres) + "&tri=" + triActif;
+            xhr.send(parametres);
+        }
+    </script>
 
     <?php require_once('includes/footer.php'); ?>
 </body>
