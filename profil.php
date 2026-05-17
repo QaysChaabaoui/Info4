@@ -132,9 +132,18 @@ require_once('includes/header.php');
                             <tbody>
                                 <?php foreach ($mes_commandes as $cmd): ?>
                                     <tr>
-                                        <td><strong><?php echo $cmd['id']; ?></strong></td>
-                                        <td><?php echo $cmd['articles']; ?></td>
-                                        <td>
+                                       <td><strong><?php echo $cmd['id']; ?></strong></td>
+                                       <td><?php echo $cmd['articles']; ?></td>
+                                       <td>
+                                        <span class="label-statut statut-<?php echo str_replace(' ', '-', strtolower($cmd['statut'])); ?>">
+                                            <?php echo $cmd['statut']; ?>
+                                        </span>
+                                        <?php if (strtolower($cmd['statut']) === 'payée'): ?>
+                                            <a href="modifier_commande_action.php?id=<?php echo $cmd['id']; ?>" style="display: inline-block; margin-left: 10px; padding: 2px 6px; background-color: #f39c12; color: white; border-radius: 4px; text-decoration: none; font-size: 0.75rem; font-weight: bold;">
+                                                Modifier 🔄
+                                            </a>
+                                            <?php endif; ?>
+                                        </td>
                                             <span
                                                 class="label-statut statut-<?php echo str_replace(' ', '-', strtolower($cmd['statut'])); ?>">
                                                 <?php echo $cmd['statut']; ?>
@@ -190,6 +199,31 @@ require_once('includes/header.php');
             };
             // 4. Envoi des données en arrière-plan
             xhr.send(formData);
+        // Écouter les changements sur les sélecteurs de notes
+        document.querySelectorAll('.select-note').forEach(select => {
+            select.addEventListener('change', function() {
+                const tr = this.closest('tr');
+                const idCommande = tr.cells[0].innerText.trim();
+                const noteSelectionnee = this.value;
+
+                if (noteSelectionnee === "") return; // Si l'utilisateur clique sur "Noter...", on fait rien
+
+                const formData = new FormData();
+                formData.append('id', idCommande);
+                formData.append('note', noteSelectionnee);
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'enregistrer_note.php', true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log("Note AJAX : " + xhr.responseText);
+                        // Une fois noté, on peut verrouiller le select pour éviter de renoter
+                        select.disabled = true;
+                    }
+                };
+                xhr.send(formData);
+            });
+        });
         });
     </script>
     <?php require_once('includes/footer.php'); ?>
