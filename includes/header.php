@@ -3,6 +3,35 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// 🛡️ VERROU DE SÉCURITÉ : Expulsion immédiate des utilisateurs bloqués
+if (isset($_SESSION['user_login'])) {
+    $liste_comptes = [];
+    if (file_exists("data/profil.json")) {
+        $liste_comptes = json_decode(file_get_contents("data/profil.json"), true) ?? [];
+    }
+    
+    foreach ($liste_comptes as $compte) {
+        // Si l'identifiant correspond et que le statut en base est 'bloqué'
+        if ($compte['login'] === $_SESSION['user_login'] && isset($compte['statut']) && strtolower($compte['statut']) === 'bloqué') {
+            
+            // 🟥 Nettoyage complet et destruction de la session sur-le-champ
+            $_SESSION = array();
+            if (ini_get("session_use_cookies")) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 42000,
+                    $params["path"], $params["domain"],
+                    $params["secure"], $params["httponly"]
+                );
+            }
+            session_destroy();
+            
+            // Redirection immédiate vers l'accueil avec un message d'alerte
+            header("Location: index.php?erreur=compte_bloque");
+            exit();
+        }
+    }
+}
+
 // Bouclier anti-blocage instantané
 if (isset($_SESSION['user_login'])) {
     $utilisateurs_verif = json_decode(file_get_contents("data/profil.json"), true) ?? [];
@@ -60,3 +89,4 @@ if (isset($_SESSION['user_login'])) {
         </ul>
     </nav>
 </header>
+
