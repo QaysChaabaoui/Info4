@@ -22,11 +22,13 @@ $livreurs = array_filter($utilisateurs, function ($u) {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Cuisine - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <main class="container-admin">
         <section class="cuisine-section">
@@ -51,12 +53,14 @@ $livreurs = array_filter($utilisateurs, function ($u) {
                                 <td><strong><?php echo $cmd['id']; ?></strong></td>
                                 <td class="cellule-articles"><?php echo $cmd['articles']; ?></td>
                                 <td>
-                                    <span class="badge-timing <?php echo ($cmd['timing'] === 'Immédiat' ? 'urgent' : 'attente'); ?>">
+                                    <span
+                                        class="badge-timing <?php echo ($cmd['timing'] === 'Immédiat' ? 'urgent' : 'attente'); ?>">
                                         <?php echo $cmd['timing']; ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="label-statut statut-<?php echo str_replace(' ', '-', strtolower($cmd['statut'])); ?>">
+                                    <span id="statut-text-<?php echo $cmd['id']; ?>"
+                                        class="label-statut statut-<?php echo str_replace(' ', '-', strtolower($cmd['statut'])); ?>">
                                         <?php echo $cmd['statut']; ?>
                                     </span>
                                 </td>
@@ -65,16 +69,18 @@ $livreurs = array_filter($utilisateurs, function ($u) {
                                 </td>
                                 <td>
                                     <select class="select-statut-cuisine">
-                                        <option value="A préparer" <?php echo ($cmd['statut'] == 'A préparer' ? 'selected' : ''); ?>>A préparer</option>
-                                        <option value="En cours" <?php echo ($cmd['statut'] == 'En cours' ? 'selected' : ''); ?>>En préparation</option>
-                                        <option value="Prête" <?php echo ($cmd['statut'] == 'Prête' ? 'selected' : ''); ?>>Prête</option>
+                                        <option value="PAYÉE" <?php echo (strtolower($cmd['statut']) === 'payée' ? 'selected' : ''); ?>>A préparer</option>
+                                        <option value="EN COURS" <?php echo (strtolower($cmd['statut']) === 'en cours' || strtolower($cmd['statut']) === 'en préparation' ? 'selected' : ''); ?>>En
+                                            préparation</option>
+                                        <option value="PRÊTE" <?php echo (strtolower($cmd['statut']) === 'prête' ? 'selected' : ''); ?>>Prête</option>
+                                        <option value="EN LIVRAISON" <?php echo (strtolower($cmd['statut']) === 'en livraison' ? 'selected' : ''); ?>>En livraison</option>
                                     </select>
                                 </td>
                                 <td>
                                     <select class="select-livreur">
                                         <option value="">-- Choisir --</option>
                                         <?php foreach ($livreurs as $l): ?>
-                                            <option value="<?php echo $l['login']; ?>">
+                                            <option value="<?php echo $l['login']; ?>" <?php echo (isset($cmd['livreur']) && $cmd['livreur'] === $l['login'] ? 'selected' : ''); ?>>
                                                 <?php echo $l['prenom'] . " " . substr($l['nom'], 0, 1) . "."; ?>
                                             </option>
                                         <?php endforeach; ?>
@@ -89,9 +95,9 @@ $livreurs = array_filter($utilisateurs, function ($u) {
     </main>
 
     <script>
-        // 1. Écouter les changements sur le sélecteur de Statut Cuisine
+        //  Écouter les changements sur le sélecteur de statut de cuisine
         document.querySelectorAll('.select-statut-cuisine').forEach(select => {
-            select.addEventListener('change', function() {
+            select.addEventListener('change', function () {
                 const tr = this.closest('tr');
                 const idCommande = tr.cells[0].innerText.trim();
                 const nouveauStatut = this.value;
@@ -100,9 +106,9 @@ $livreurs = array_filter($utilisateurs, function ($u) {
             });
         });
 
-        // 2. Écouter les changements sur le sélecteur de Livreur
+        //  Écouter les changements sur le sélecteur de Livreur
         document.querySelectorAll('.select-livreur').forEach(select => {
-            select.addEventListener('change', function() {
+            select.addEventListener('change', function () {
                 const tr = this.closest('tr');
                 const idCommande = tr.cells[0].innerText.trim();
                 const livreurLogin = this.value;
@@ -111,7 +117,7 @@ $livreurs = array_filter($utilisateurs, function ($u) {
             });
         });
 
-        // 3. Fonction d'envoi AJAX générique
+        //  Fonction d'envoi de la mise à jour au serveur via AJAX
         function envoyerMiseAJour(id, statut, livreur) {
             const formData = new FormData();
             formData.append('id', id);
@@ -120,10 +126,22 @@ $livreurs = array_filter($utilisateurs, function ($u) {
 
             const xhr = new XMLHttpRequest();
             xhr.open('POST', 'modifier_statut_commande.php', true);
-            xhr.onreadystatechange = function() {
+
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    // Petit feedback visuel rapide en console pour vérifier que ça fonctionne
                     console.log("Serveur : " + xhr.responseText);
+
+                    // Mise à jour dynamique du statut dans la table sans recharger la page
+                    if (statut !== null) {
+                        const badgeSpan = document.getElementById("statut-text-" + id);
+                        if (badgeSpan) {
+                            badgeSpan.innerText = statut.toUpperCase();
+
+                            // On recalcule dynamiquement les classes CSS pour la couleur du badge
+                            const classeCouleur = statut.toLowerCase().replace(' ', '-');
+                            badgeSpan.className = "label-statut statut-" + classeCouleur;
+                        }
+                    }
                 }
             };
             xhr.send(formData);
@@ -131,4 +149,5 @@ $livreurs = array_filter($utilisateurs, function ($u) {
     </script>
     <?php require_once('includes/footer.php'); ?>
 </body>
+
 </html>
