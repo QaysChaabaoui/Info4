@@ -2,6 +2,23 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Bouclier anti-blocage instantané
+if (isset($_SESSION['user_login'])) {
+    $utilisateurs_verif = json_decode(file_get_contents("data/profil.json"), true) ?? [];
+    foreach ($utilisateurs_verif as $u_verif) {
+        if ($u_verif['login'] === $_SESSION['user_login']) {
+            if (isset($u_verif['statut_compte']) && $u_verif['statut_compte'] === 'bloqué') {
+                // On détruit sa session sur-le-champ
+                session_unset();
+                session_destroy();
+                header("Location: connexion.php?erreur=bloque");
+                exit();
+            }
+            break;
+        }
+    }
+}
 ?>
 <header>
     <div class="logo">
