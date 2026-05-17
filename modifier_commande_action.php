@@ -23,20 +23,40 @@ foreach ($toutes_commandes as $cmd) {
 if ($commande_cible) {
     $_SESSION['panier'] = [];
     $_SESSION['modification_commande_id'] = $commande_cible['id'];
-    $_SESSION['montant_deja_paye'] = (float)$commande_cible['montant'];
 
-    if (isset($commande_cible['details_plats']) && is_array($commande_cible['details_plats'])) {
-        $_SESSION['panier'] = $commande_cible['details_plats'];
-    } else {
-        $_SESSION['panier'][1] = [
-            'nom' => $commande_cible['articles'],
-            'prix' => (float)$commande_cible['montant'],
-            'quantite' => 1
-        ];
+    // CORRECTION : On utilise la clé 'total' conforme à ton commandes.json
+    $_SESSION['montant_deja_paye'] = (float) $commande_cible['total'];
+
+    // ALGORITHME DE DÉCOUPAGE : Recréer un vrai panier d'articles modifiables
+    $chaine_articles = $commande_cible['articles'];
+    $tableau_decoupe = explode(', ', $chaine_articles);
+
+    $json_menu = json_decode(file_get_contents("data/Menu.json"), true);
+    $catalogue_plats = $json_menu['plats'] ?? [];
+
+    foreach ($tableau_decoupe as $morceau) {
+        if (preg_match('/(\d+)\s*x\s*(.+)/', $morceau, $matches)) {
+            $quantite = (int) $matches[1];
+            $nom_plat = trim($matches[2]);
+
+            // On cherche le produit dans le catalogue pour récupérer son ID et son PRIX réels
+            foreach ($catalogue_plats as $plat) {
+                if (strcasecmp($plat['nom'], $nom_plat) === 0) {
+                    $_SESSION['panier'][$plat['id']] = [
+                        'nom' => $plat['nom'],
+                        'prix' => (float) $plat['prix'],
+                        'quantite' => $quantite
+                    ];
+                    break;
+                }
+            }
+        }
     }
+
     header("Location: menu.php");
     exit();
 } else {
     header("Location: profil.php?erreur=impossible");
     exit();
 }
+?>
