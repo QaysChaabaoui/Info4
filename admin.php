@@ -71,6 +71,41 @@ $utilisateurs = json_decode($json_content, true);
         </section>
     </main>
 
+    <script>
+        document.querySelectorAll('.btn-block').forEach(button => {
+            // Ajustement initial du texte si l'utilisateur est déjà bloqué dans le JSON
+            const row = button.closest('tr');
+            const email = row.cells[1].innerText.trim();
+            
+            button.addEventListener('click', function() {
+                const estBloque = this.innerText.includes('Débloquer');
+                const action = estBloque ? 'debloquer' : 'bloquer';
+                
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('action', action);
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'modifier_statut_utilisateur.php', true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        if (xhr.responseText.trim() === 'Succès') {
+                            if (action === 'bloquer') {
+                                button.innerText = '✅ Débloquer';
+                                button.style.backgroundColor = '#2ecc71';
+                            } else {
+                                button.innerText = '🚫 Bloquer';
+                                button.style.backgroundColor = ''; // Reprend la couleur d'origine
+                            }
+                        } else {
+                            alert(xhr.responseText);
+                        }
+                    }
+                };
+                xhr.send(formData);
+            });
+        });
+    </script>
     <?php require_once('includes/footer.php'); ?>
 </body>
 
