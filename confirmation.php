@@ -18,7 +18,28 @@ if (isset($_GET['status']) && isset($_GET['control'])) {
 
     if ($control_calcul === $control_recu && $status === 'accepted') {
         $paiement_valide = true;
+       if (isset($_GET['mod_id']) && isset($_SESSION['panier'])) {
+            $mod_id = $_GET['mod_id'];
+            $total_global = $_GET['total_global'];
+            
+            $toutes_commandes = json_decode(file_get_contents("data/commandes.json"), true) ?? [];
+            foreach ($toutes_commandes as &$cmd) {
+                if ($cmd['id'] == $mod_id) {
+                    $liste_noms = [];
+                    foreach ($_SESSION['panier'] as $item) {
+                        $liste_noms[] = $item['quantite'] . "x " . $item['nom'];
+                    }
+                    $cmd['articles'] = implode(', ', $liste_noms);
+                    $cmd['montant'] = $total_global;
+                    break;
+                }
+            }
+            file_put_contents("data/commandes.json", json_encode($toutes_commandes, JSON_PRETTY_PRINT));
+        }
+
         unset($_SESSION['panier']);
+        unset($_SESSION['modification_commande_id']);
+        unset($_SESSION['montant_deja_paye']);
     }
 }
 ?>
