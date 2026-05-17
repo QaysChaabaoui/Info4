@@ -35,7 +35,7 @@ if (isset($_GET['status']) && isset($_GET['control'])) {
                         $liste_noms[] = $item['quantite'] . "x " . $item['nom'];
                     }
                     $cmd['articles'] = implode(', ', $liste_noms);
-                    $cmd['total'] = $calcul_total_global; // Utilise la bonne clé 'total' de ton JSON
+                    $cmd['total'] = $calcul_total_global; 
                     break;
                 }
             }
