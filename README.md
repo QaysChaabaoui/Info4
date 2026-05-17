@@ -67,5 +67,5 @@ projet/
 ├── modifier_statut_utilisateur.php   # Traitement AJAX : Blocage de compte
 ├── modifier_statut_commande.php      # Traitement AJAX : Cuisine & Livraisons
 ├── enregistrer_note.php              # Traitement AJAX : Enregistrement de l'évaluation
-├── style.css                         # Charte graphique harmonisée (Kanit/Roboto)
+├── style.css                         # Feuille de style complète unifiée
 └── README.md                         # Documentation du projet
