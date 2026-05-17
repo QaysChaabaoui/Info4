@@ -5,7 +5,8 @@
         "role": "client",
         "nom": "Zidane",
         "prenom": "Zinedine",
-        "adresse": "1 Place du Vieux Pré, Dreux"
+        "adresse": "1 Place du Vieux Pr\u00e9, Dreux",
+        "statut_compte": "bloqu\u00e9"
     },
     {
         "login": "km7@psg.fr",
@@ -13,7 +14,8 @@
         "role": "client",
         "nom": "Mbappe",
         "prenom": "Kylian",
-        "adresse": "2 Rue de la Victoire, Dreux"
+        "adresse": "2 Rue de la Victoire, Dreux",
+        "statut_compte": "actif"
     },
     {
         "login": "kb9@mail.com",
