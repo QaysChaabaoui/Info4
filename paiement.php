@@ -23,13 +23,11 @@ if ($est_une_modification) {
     $montant_a_payer_banque = $total_a_payer - $montant_deja_paye;
 }
 
-// ⚽ INTERCEPTION : Si la redirection doit se faire, elle se fait ICI avant tout HTML
 if ($montant_a_payer_banque <= 0 && $est_une_modification) {
     header("Location: confirmation.php?status=accepted&transaction=MOD-INTERNE&montant=0.00&control=" . md5($api_key . "#MOD-INTERNE#0.00#" . $vendeur . "#accepted#"));
     exit();
 }
 
-// 🎯 TOUTES LES REDIRECTIONS SONT PASSÉES : On peut maintenant inclure le Header HTML sereinement
 require_once('includes/header.php');
 
 $total_a_payer = $montant_a_payer_banque;
