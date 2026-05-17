@@ -1,8 +1,8 @@
 <?php
-// 1. On inclut le header (qui gère déjà le session_start)
+// 1. On inclut le header 
 require_once('includes/header.php');
 
-// 2. Bouclier de sécurité (Coach ou Chef uniquement)
+// 2. Sécurité
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'restaurateur' && $_SESSION['user_role'] !== 'admin')) {
     header("Location: index.php");
     exit();
