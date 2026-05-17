@@ -18,11 +18,13 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Livraisons - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <main>
         <section class="cart-section">
@@ -31,7 +33,7 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
 
             <div class="cart-container">
                 <h3 class="delivery-subtitle">⚽ Matchs en cours (À livrer)</h3>
-                
+
                 <table class="cart-table">
                     <thead>
                         <tr>
@@ -45,7 +47,17 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
                     </thead>
                     <tbody>
                         <?php foreach ($commandes as $cmd): ?>
-                            <?php if ($cmd['statut'] === 'Prête' || $cmd['statut'] === 'En livraison'): ?>
+                            <?php
+                            // 1. On passe le statut en minuscules pour bloquer le piège de la casse
+                            $statut_minuscule = strtolower($cmd['statut'] ?? '');
+
+                            // 2. On gère les autorisations d'affichage
+                            $estPourMoi = (isset($cmd['livreur']) && $cmd['livreur'] === $_SESSION['user_login']);
+                            $estAdmin = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
+
+                            // 3. Le filtre accepte désormais toutes les écritures (PRÊTE, Prête, prête, etc.)
+                            if (($statut_minuscule === 'prête' || $statut_minuscule === 'en livraison') && ($estPourMoi || $estAdmin)):
+                                ?>
                                 <tr>
                                     <td><strong><?php echo $cmd['id']; ?></strong></td>
                                     <td><?php echo $cmd['client']; ?></td>
@@ -65,15 +77,16 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
                                         <a href="#" class="btn-view-delivery">📄 Voir</a>
                                     </td>
                                     <td>
-                                        <span class="label-statut statut-<?php echo str_replace(' ', '-', strtolower($cmd['statut'])); ?>">
+                                        <span
+                                            class="label-statut statut-<?php echo str_replace(' ', '-', $statut_minuscule); ?>">
                                             <?php echo $cmd['statut']; ?>
                                         </span>
                                     </td>
                                     <td>
                                         <select class="select-delivery-status">
-                                            <option value="En livraison" <?php echo ($cmd['statut'] == 'En livraison' ? 'selected' : ''); ?>>En route</option>
-                                            <option value="Livrée">✅ Livrée</option>
-                                            <option value="Abandonnée">❌ Abandonnée</option>
+                                            <option value="EN LIVRAISON" <?php echo ($statut_minuscule === 'en livraison' ? 'selected' : ''); ?>>En route</option>
+                                            <option value="LIVRÉE">✅ Livrée</option>
+                                            <option value="ABANDONNÉE">❌ Abandonnée</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -88,32 +101,42 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
     <script>
         // Écouter les changements sur le menu déroulant de statut de livraison
         document.querySelectorAll('.select-delivery-status').forEach(select => {
-            select.addEventListener('change', function() {
-                // On récupère la ligne (tr) correspondante pour extraire l'ID de la commande
+            select.addEventListener('change', function () {
                 const tr = this.closest('tr');
                 const idCommande = tr.cells[0].innerText.trim();
                 const nouveauStatut = this.value;
 
-                // Préparation et envoi de la requête asynchrone AJAX
                 const formData = new FormData();
                 formData.append('id', idCommande);
                 formData.append('statut', nouveauStatut);
 
                 const xhr = new XMLHttpRequest();
-                // On réutilise le script de traitement universel qu'on a créé pour la cuisine
                 xhr.open('POST', 'modifier_statut_commande.php', true);
-                
-                xhr.onreadystatechange = function() {
+
+                xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Feedback visuel rapide en console
                         console.log("Livreur AJAX : " + xhr.responseText);
-                        
-                        // Optionnel : On met à jour visuellement le badge de statut de la ligne
-                        const labelStatut = tr.querySelector('.label-statut');
-                        if (labelStatut) {
-                            labelStatut.innerText = nouveauStatut;
-                            // Met à jour la classe CSS pour la couleur du badge
-                            labelStatut.className = 'label-statut statut-' + nouveauStatut.toLowerCase().replace(' ', '-');
+
+                        // 1. On vérifie d'abord que le PHP a bien écrit "Succès" dans le JSON
+                        if (xhr.responseText.trim().includes("Succ")) {
+
+                            // 2. 🛡️ ASTUCE ANTI-ACCENT : On passe en minuscules et on cherche juste "livr" ou "abandon"
+                            const statutNormalise = nouveauStatut.toLowerCase();
+
+                            if (statutNormalise.includes('livr') || statutNormalise.includes('abandon')) {
+                                tr.remove(); // La ligne s'efface proprement de l'écran !
+                            } else {
+                                // Si c'est juste un passage à "En route"
+                                const labelStatut = tr.querySelector('.label-statut');
+                                if (labelStatut) {
+                                    labelStatut.innerText = nouveauStatut;
+                                    labelStatut.className = 'label-statut statut-' + statutNormalise.replace(' ', '-');
+                                }
+                            }
+
+                        } else {
+                            // 🚨 Si le PHP renvoie une erreur (Ex: Accès refusé), on l'affiche pour comprendre
+                            alert("Le JSON n'a pas changé ! Réponse du serveur : " + xhr.responseText);
                         }
                     }
                 };
@@ -123,4 +146,5 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
     </script>
     <?php require_once('includes/footer.php'); ?>
 </body>
+
 </html>
