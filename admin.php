@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// 2. redirige l'utilisateur vers l'accueil s'il n'est pas admin
+// redirige l'utilisateur vers l'accueil s'il n'est pas admin
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
     header("Location: index.php");
     exit(); // On arrête le script ici pour ne rien charger d'autre
@@ -99,11 +99,9 @@ $utilisateurs = json_decode($json_content, true);
                         if (xhr.responseText.trim().includes('Succ')) {
                             if (action === 'bloquer') {
                                 button.innerText = '✅ Débloquer';
-                                // 🟢 On ajoute la classe que tu as déjà dans ton CSS
                                 button.classList.add('urgent');
                             } else {
                                 button.innerText = '🚫 Bloquer';
-                                // 🔴 On retire la classe pour revenir au style de base
                                 button.classList.remove('urgent');
                             }
                         } else {
