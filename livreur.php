@@ -1,14 +1,14 @@
 <?php
-// 1. On inclut le header (qui gère déjà le session_start)
+// On inclut le header 
 require_once('includes/header.php');
 
-// 2. Sécurité : Seuls le Livreur et l'Admin entrent sur le terrain
+// Sécurité
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'livreur' && $_SESSION['user_role'] !== 'admin')) {
     header("Location: index.php");
     exit();
 }
 
-// 3. Chargement des données
+// Chargement des données
 $commandes = [];
 if (file_exists("data/commandes.json")) {
     $commandes = json_decode(file_get_contents("data/commandes.json"), true) ?? [];
@@ -48,14 +48,14 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
                     <tbody>
                         <?php foreach ($commandes as $cmd): ?>
                             <?php
-                            // 1. On passe le statut en minuscules pour bloquer le piège de la casse
+                            // On passe le statut en minuscules
                             $statut_minuscule = strtolower($cmd['statut'] ?? '');
 
-                            // 2. On gère les autorisations d'affichage
+                            // On gère les autorisations d'affichage
                             $estPourMoi = (isset($cmd['livreur']) && $cmd['livreur'] === $_SESSION['user_login']);
                             $estAdmin = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
 
-                            // 3. Le filtre accepte désormais toutes les écritures (PRÊTE, Prête, prête, etc.)
+                            // Le filtre accepte désormais toutes les écritures
                             if (($statut_minuscule === 'prête' || $statut_minuscule === 'en livraison') && ($estPourMoi || $estAdmin)):
                                 ?>
                                 <tr>
@@ -117,10 +117,10 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         console.log("Livreur AJAX : " + xhr.responseText);
 
-                        // 1. On vérifie d'abord que le PHP a bien écrit "Succès" dans le JSON
+                        // On vérifie d'abord que le PHP a bien écrit "Succès" dans le JSON
                         if (xhr.responseText.trim().includes("Succ")) {
 
-                            // 2. 🛡️ ASTUCE ANTI-ACCENT : On passe en minuscules et on cherche juste "livr" ou "abandon"
+                            // On passe en minuscules et on cherche juste "livr" ou "abandon"
                             const statutNormalise = nouveauStatut.toLowerCase();
 
                             if (statutNormalise.includes('livr') || statutNormalise.includes('abandon')) {
@@ -135,7 +135,7 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
                             }
 
                         } else {
-                            // 🚨 Si le PHP renvoie une erreur (Ex: Accès refusé), on l'affiche pour comprendre
+                            // Si le PHP renvoie une erreur, on l'affiche pour comprendre
                             alert("Le JSON n'a pas changé ! Réponse du serveur : " + xhr.responseText);
                         }
                     }
