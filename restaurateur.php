@@ -88,8 +88,47 @@ $livreurs = array_filter($utilisateurs, function ($u) {
         </section>
     </main>
 
+    <script>
+        // 1. Écouter les changements sur le sélecteur de Statut Cuisine
+        document.querySelectorAll('.select-statut-cuisine').forEach(select => {
+            select.addEventListener('change', function() {
+                const tr = this.closest('tr');
+                const idCommande = tr.cells[0].innerText.trim();
+                const nouveauStatut = this.value;
+
+                envoyerMiseAJour(idCommande, nouveauStatut, null);
+            });
+        });
+
+        // 2. Écouter les changements sur le sélecteur de Livreur
+        document.querySelectorAll('.select-livreur').forEach(select => {
+            select.addEventListener('change', function() {
+                const tr = this.closest('tr');
+                const idCommande = tr.cells[0].innerText.trim();
+                const livreurLogin = this.value;
+
+                envoyerMiseAJour(idCommande, null, livreurLogin);
+            });
+        });
+
+        // 3. Fonction d'envoi AJAX générique
+        function envoyerMiseAJour(id, statut, livreur) {
+            const formData = new FormData();
+            formData.append('id', id);
+            if (statut !== null) formData.append('statut', statut);
+            if (livreur !== null) formData.append('livreur', livreur);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'modifier_statut_commande.php', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Petit feedback visuel rapide en console pour vérifier que ça fonctionne
+                    console.log("Serveur : " + xhr.responseText);
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
     <?php require_once('includes/footer.php'); ?>
 </body>
 </html>
-
-
