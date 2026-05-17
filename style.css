@@ -1,37 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
-/* 2. VARIABLES : Palette de la Charte Graphique */
+/* ==========================================================================
+   1. VARIABLES DE LA CHARTE (Couleurs officielles Dreux & Foot)
+   ========================================================================== */
 :root {
-    --bleu-dreux: #0055A4;
-    --vert-terrain: #2ECC71;
-    --jaune-or: #F1C40F;
-    --gris-fond: #f0f2f5;
-    --blanc: #ffffff;
+    --bleu-dreux: #0055A4;         /* Bleu Royal (Identité Dreux, Header, Titres) */
+    --primary-hover: #003366;      /* Bleu Nuit (Effets de survol / hovers) */
+    --vert-terrain: #2ECC71;       /* Vert Pelouse (Validation, Prix, Succès) */
+    --action-gradient: #27ae60;    /* Vert foncé (Dégradés des capsules de prix) */
+    --jaune-or: #F1C40F;           /* Jaune Or (Bordures relief, Étoiles, Hovers) */
+    --danger-color: #eb2f06;       /* Rouge (Pour les boutons Bloquer / Refuser) */
+    --gris-fond: #F0F2F5;          /* Gris très pâle (Aspect moderne) */
+    --blanc: #FFFFFF;              /* Blanc pur */
+    --text-dark: #2C3E50;          /* Bleu-gris foncé (Lisibilité optimale) */
+    --border-color: #dddddd;       /* Couleur des bordures de tableaux */
+
+    /* Animations & Ombres */
     --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
     --shadow-strong: 0 15px 45px rgba(0, 0, 0, 0.15);
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- MODE SOMBRE SIMPLE (Phase 3) --- */
+/* --- MODE SOMBRE INTERACTIF --- */
 body.dark-theme {
     background: #1a1a1a; 
-    color: #2b0ae3; 
+    color: #ffffff; 
+    --gris-fond: #2c2c2c;
+    --blanc: #222222;
+    --text-dark: #ffffff;
+    --border-color: #444444;
 }
-
 body.dark-theme .card, 
 body.dark-theme .login-card, 
-body.dark-theme .cart-container {
+body.dark-theme .cart-container,
+body.dark-theme .cart-section {
     background-color: #2c2c2c;
     color: #ffffff;
-    border: 1px solid #444;
+    border-color: #444;
 }
-
 body.dark-theme h1, 
 body.dark-theme h2, 
 body.dark-theme h3 {
-    color: #F1C40F; 
+    color: var(--jaune-or); 
 }
 
+/* ==========================================================================
+   2. BASES & TYPOGRAPHIE
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -39,24 +54,33 @@ body.dark-theme h3 {
 }
 
 body {
-    background: radial-gradient(circle at top, #ffffff 0%, var(--gris-fond) 100%);
     font-family: 'Roboto', sans-serif;
-    color: #2C3E50;
+    background: radial-gradient(circle at top, #ffffff 0%, var(--gris-fond) 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.6;
     overflow-x: hidden;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3, .cart-table th {
     font-family: 'Kanit', sans-serif;
     text-transform: uppercase;
     color: var(--bleu-dreux);
 }
 
-/* HEADER*/
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ==========================================================================
+   3. HEADER (Le Poste de Commande) & FOOTER
+   ========================================================================== */
 header {
     background: rgba(0, 85, 164, 0.9);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 4px solid var(--jaune-or);
     padding: 15px 50px;
     position: sticky;
@@ -77,6 +101,7 @@ nav ul {
     display: flex;
     list-style: none;
     gap: 30px;
+    align-items: center;
 }
 
 nav a {
@@ -85,10 +110,9 @@ nav a {
     color: var(--blanc);
     text-decoration: none;
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
-/* Le trait Or qui souligne au survol */
 nav a::after {
     content: '';
     position: absolute;
@@ -97,235 +121,19 @@ nav a::after {
     bottom: 0;
     left: 50%;
     background: var(--jaune-or);
-    transition: all 0.3s ease;
+    transition: var(--transition);
     transform: translateX(-50%);
 }
 
-nav a:hover::after {
-    width: 100%;
-}
+nav a:hover::after { width: 100%; }
+nav a:hover { color: var(--jaune-or); }
 
-nav a:hover {
-    color: var(--jaune-or);
-}
+/* Navigation Rôles */
+.nav-profile { color: var(--jaune-or) !important; }
+.nav-admin, .nav-kitchen { color: var(--vert-terrain) !important; }
+.nav-delivery { color: var(--jaune-or) !important; }
+.nav-logout { color: #ff4757 !important; }
 
-/* ZONE PRINCIPALE */
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-/* Barre de recherche */
-.search-section {
-    background: var(--bleu-dreux);
-    color: white;
-    padding: 4rem 2rem;
-    border-radius: 30px;
-    margin: 50px 20px;
-    text-align: center;
-    box-shadow: var(--shadow-soft);
-}
-
-.search-section h2 {
-    color: white;
-    margin-bottom: 25px;
-}
-
-.search-box input {
-    padding: 15px 25px;
-    width: 400px;
-    border: none;
-    border-radius: 40px 0 0 40px;
-    font-size: 1.1rem;
-}
-
-.search-box button {
-    padding: 15px 35px;
-    background: var(--jaune-or);
-    color: var(--bleu-dreux);
-    border: none;
-    border-radius: 0 40px 40px 0;
-    font-weight: 900;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.search-box button:hover {
-    background: var(--vert-terrain);
-    color: white;
-}
-
-/* FILTRES DE TACTIQUE */
-.filters-section {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.filter-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.filter-btn {
-    background: var(--blanc);
-    border: 2px solid #ddd;
-    padding: 10px 22px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-family: 'Kanit', sans-serif;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Effet au survol */
-.filter-btn:hover {
-    border-color: var(--bleu-dreux);
-    color: var(--bleu-dreux);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-soft);
-}
-
-/* Le bouton sélectionné (Le titulaire) */
-.filter-btn.active {
-    background: var(--vert-terrain);
-    border-color: var(--vert-terrain);
-    color: var(--blanc);
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
-}
-
-/* CARTES STYLE "PANINI FOOT" */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    padding: 20px;
-}
-
-article.card {
-    background: var(--blanc);
-    border: none;
-    outline: 1px solid #ddd;
-    border-radius: 20px;
-    box-shadow: var(--shadow-soft);
-    padding: 25px;
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 380px;
-}
-
-/* Effet de brillance au survol */
-article.card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-strong);
-    border-color: var(--jaune-or);
-}
-
-article.card:hover .card-photo-container img {
-    transform: scale(1.1);
-}
-
-/* Zone Image */
-.card-photo-container {
-    width: 100%;
-    height: 180px;
-    background: #f0f0f0;
-    border: 2px solid var(--bleu-dreux);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.card-photo-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-
-/* Infos de la carte */
-article.card h3 {
-    font-size: 1.3rem;
-    color: var(--bleu-dreux);
-    margin: 5px 0;
-    background: rgba(0, 85, 164, 0.05);
-    padding: 5px;
-}
-
-article.card p {
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 15px;
-    flex-grow: 1;
-}
-
-/* --- RÉPARATION DE LA BARRE D'ACHAT (PILULE UNIFIÉE) --- */
-
-.price-container {
-    display: flex !important;
-    justify-content: center;
-    align-items: stretch !important;
-    /* Force la même hauteur pour tous */
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 20px;
-    overflow: hidden;
-    /* Coupe ce qui dépasse pour garder l'arrondi */
-}
-
-.price-pill {
-    background: var(--vert-terrain) !important;
-    color: white !important;
-    padding: 10px 15px !important;
-    border-radius: 20px 0 0 20px !important;
-    /* Arrondi à gauche uniquement */
-    font-weight: 800;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-
-.input-qte-menu {
-    width: 50px !important;
-    border: 1px solid #ddd !important;
-    border-left: none !important;
-    border-right: none !important;
-    text-align: center;
-    font-size: 1.1rem;
-    background: white;
-}
-
-.btn-select {
-    background: var(--bleu-dreux) !important;
-    color: white !important;
-    border: none;
-    padding: 10px 15px !important;
-    border-radius: 0 20px 20px 0 !important;
-    /* Arrondi à droite uniquement */
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: var(--transition);
-}
-
-.btn-select:hover {
-    background: #003366 !important;
-}
-
-/* FOOTER */
 footer {
     text-align: center;
     padding: 2rem;
@@ -335,202 +143,27 @@ footer {
     border-top: 4px solid var(--jaune-or);
 }
 
-/* PAGE CONNEXION (Vestiaires) */
-
-.login-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 60vh;
-}
-
-.login-card {
-    background: var(--blanc);
-    padding: 2.5rem;
-    border-radius: 15px;
-    width: 100%;
-    max-width: 450px;
-    text-align: center;
-    border-top: 5px solid var(--bleu-dreux);
-}
-
-.login-card h2 {
-    margin-bottom: 10px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
-.form-group input:focus {
-    border-color: var(--bleu-dreux);
-    outline: none;
-}
-
-.btn-login {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--bleu-dreux);
-    color: var(--blanc);
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    margin-top: 10px;
-    transition: background 0.3s;
-}
-
-.btn-login:hover {
-    background-color: #003366;
-}
-
-.switch-account {
-    margin-top: 15px;
-    font-size: 0.9rem;
-}
-
-.switch-account a {
-    color: var(--vert-terrain);
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* PAGE PROFIL (Licence Joueur) */
-
-.profile-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-}
-
-/* La Carte "Licence" */
-.license-card {
-    background: linear-gradient(135deg, var(--bleu-dreux) 0%, #003366 100%);
-    color: var(--blanc);
-    width: 100%;
-    max-width: 500px;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    border: 2px solid var(--jaune-or);
-    margin-bottom: 20px;
-}
-
-.license-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-}
-
-.avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid var(--jaune-or);
-}
-
-
-.player-info p {
-    margin: 5px 0 0 0;
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-
-.btn-logout {
-    color: var(--blanc);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn-logout:hover {
-    background-color: #c0392b;
-}
-
-.hero-banner {
-    background-color: var(--bleu-dreux);
-    min-height: 450px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-
-    border-radius: 40px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    margin: 40px 20px;
-    padding: 20px;
-    text-align: center;
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    position: relative;
-}
-
-.hero-banner h2 {
-    font-size: 3rem;
-    color: var(--jaune-or);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-}
-
-.hero-banner p {
-    font-size: 1.2rem;
-    margin-bottom: 35px;
-    font-weight: 300;
-    max-width: 600px;
-}
-
-.btn-action {
-    background: var(--jaune-or);
-    color: var(--bleu-dreux);
-    padding: 18px 45px;
-    font-size: 1.2rem;
-    font-weight: 900;
-    border-radius: 50px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-}
-
-.btn-action:hover {
-    transform: translateY(3px);
-    background: rgb(255, 255, 255);
-}
-
+/* ==========================================================================
+   4. STRUCTURES DU SITE (Cartes & Tableaux)
+   ========================================================================== */
 .cart-section {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+    background: var(--blanc);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+    border-top: 5px solid var(--bleu-dreux);
+    margin-bottom: 30px;
+}
+
+.cart-section h2 {
+    margin-bottom: 25px;
+    font-size: 1.8rem;
 }
 
 .cart-container {
     background: var(--blanc);
-    padding: 2rem;
-    border-radius: 10px;
     margin-top: 20px;
+    overflow-x: auto;
 }
 
 .cart-table {
@@ -539,424 +172,128 @@ footer {
     margin-bottom: 20px;
 }
 
-.cart-table th,
-.cart-table td {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-
 .cart-table th {
     background-color: var(--bleu-dreux);
     color: var(--blanc);
-}
-
-.cart-total {
-    text-align: right;
-    border-top: 3px solid var(--vert-terrain);
-    padding-top: 20px;
-}
-
-.cart-total h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-}
-
-.cart-total span {
-    color: var(--vert-terrain);
-}
-
-.btn-checkout {
-    background-color: var(--vert-terrain);
-    color: var(--blanc);
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.btn-checkout:hover {
-    transform: scale(1.05);
-}
-
-
-/* --- INTERFACE RESTAURATEUR --- */
-
-.table-commandes {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-
-.table-commandes th {
-    background-color: var(--bleu-dreux);
-    color: white;
     padding: 15px;
-    text-align: left;
-}
-
-.table-commandes td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
-}
-
-/* Badges de Timing */
-.badge-timing {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: bold;
-}
-
-.badge-timing.urgent {
-    background-color: #ff4757;
-    color: white;
-}
-
-.badge-timing.attente {
-    background-color: #f1c40f;
-    color: black;
-}
-
-/* Libellés de Statut */
-.label-statut {
     font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8em;
-}
-
-.statut-a-préparer {
-    color: #ff4757;
-}
-
-.statut-en-cours {
-    color: #3498db;
-}
-
-.statut-en-livraison {
-    color: #2ecc71;
-}
-
-/* Sélecteur cuisine */
-.select-statut-cuisine {
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
-
-/* --- SECTION PROFIL & HISTORIQUE --- */
-
-.info-detail {
-    margin-top: 8px;
-    font-size: 0.95em;
-    color: rgba(255, 255, 255, 0.85);
-}
-
-.historique-container {
-    margin-top: 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 20px;
-    color: white;
-}
-
-.historique-container h3 {
-    color: #ffffff;
-    font-size: 1.1em;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.table-historique {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9em;
-    color: white;
-}
-
-.table-historique th {
     text-align: left;
-    padding: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    color: rgba(255, 255, 255, 0.6);
 }
 
-.table-historique td {
-    padding: 10px 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.cart-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
 }
 
-.select-note {
-    padding: 4px;
-    border-radius: 4px;
-    background: white;
-    color: #333;
+.cart-table tr:hover {
+    background-color: rgba(0, 85, 164, 0.03);
+    transition: background-color 0.2s ease;
+}
+
+/* ==========================================================================
+   5. BOUTONS ET INTERACTIONS
+   ========================================================================== */
+.btn-admin-view, .btn-view-delivery, .btn-admin-action, .btn-promo, .btn-checkout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+    border-radius: 30px;
+    text-decoration: none;
     border: none;
     cursor: pointer;
-    font-size: 0.9em;
-}
-
-.match-en-cours {
-    color: rgba(255, 255, 255, 0.5);
-    font-style: italic;
-}
-
-/* --- CLASSES POUR LA NOTATION & AVIS --- */
-
-.card-notation {
-    max-width: 500px !important;
-    margin: 0 auto;
-}
-
-.section-avis {
-    margin-top: 50px;
-}
-
-.centered-title {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* Styles pour les champs de formulaire personnalisés */
-.form-input-custom {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-family: inherit;
-    font-size: 1rem;
     transition: var(--transition);
 }
 
-.form-input-custom:focus {
-    border-color: var(--bleu-dreux);
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 85, 164, 0.2);
+.btn-admin-view, .btn-view-delivery {
+    background-color: var(--bleu-dreux);
+    color: var(--blanc);
+}
+.btn-admin-view:hover, .btn-view-delivery:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
 }
 
-/* Style pour les étoiles de notation */
-.stars-display {
-    color: var(--jaune-or);
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-.supporter-name {
-    font-weight: bold;
-    color: var(--bleu-dreux);
-}
-
-/* --- CLASSES POUR LA NAVIGATION (HEADER) --- */
-
-.nav-profile {
-    color: var(--jaune-or) !important;
-}
-
-.nav-admin,
-.nav-kitchen {
-    color: #2ecc71 !important;
-}
-
-.nav-delivery {
-    color: #f1c40f !important;
-}
-
-.nav-logout {
-    color: #ff4757 !important;
-}
-
-nav ul li a:hover {
-    filter: brightness(1.2);
-    transition: var(--transition);
-}
-
-/* --- ORGANISATION DE LA CUISINE --- */
-
-.container-admin {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.titre-page {
-    margin-bottom: 25px;
-    border-left: 5px solid var(--jaune-or);
-    padding-left: 15px;
-}
-
-.cellule-articles {
-    font-size: 0.85rem;
-    max-width: 250px;
-    color: #555;
-}
-
-.btn-detail {
-    background: #ecf0f1;
-    color: var(--bleu-dreux);
-    padding: 5px 10px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.85em;
-    font-weight: bold;
-    transition: var(--transition);
-}
-
-.btn-detail:hover {
-    background: var(--bleu-dreux);
+.btn-block {
+    background-color: var(--danger-color);
     color: white;
 }
-
-.select-livreur {
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    font-family: inherit;
-    cursor: pointer;
+.btn-block:hover {
+    background-color: #b31b00;
+    box-shadow: 0 4px 15px rgba(235, 47, 6, 0.3);
 }
 
-/* --- LIVRAISON --- */
+.btn-promo {
+    background-color: var(--jaune-or);
+    color: var(--text-dark);
+}
+.btn-promo:hover {
+    background-color: #d4ac0d;
+}
 
-.delivery-subtitle {
-    margin-bottom: 15px;
-    color: var(--bleu-dreux);
-    text-align: left;
+.admin-status-select, .select-delivery-status, .select-statut-cuisine, .select-livreur {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    color: #2C3E50;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.admin-management-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   6. BADGES DE STATUT TACTIQUES
+   ========================================================================== */
+.label-statut {
+    display: inline-block;
+    padding: 6px 14px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    border-radius: 50px;
     font-family: 'Kanit', sans-serif;
 }
 
-.btn-view-delivery {
-    background: #95a5a6 !important;
-    color: white !important;
-    text-decoration: none !important;
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 0.85em;
-    font-weight: bold;
-    display: inline-block;
-    transition: var(--transition);
+.statut-prête, .statut-prete {
+    background-color: rgba(241, 196, 15, 0.15);
+    color: #d4ac0d;
+    border: 1px solid rgba(241, 196, 15, 0.3);
 }
 
-.btn-view-delivery:hover {
-    background: #7f8c8d !important;
-    transform: scale(1.05);
+.statut-en-livraison {
+    background-color: rgba(0, 85, 164, 0.1);
+    color: var(--bleu-dreux);
+    border: 1px solid rgba(0, 85, 164, 0.2);
 }
 
-.select-delivery-status {
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    font-family: inherit;
-    background-color: white;
+.statut-livrée, .statut-livree {
+    background: rgba(46, 204, 113, 0.15);
+    color: #27ae60;
+    border: 1px solid rgba(46, 204, 113, 0.3);
 }
 
-/* Zone timing du panier */
-.order-timing-box {
-    margin-top: 30px;
-    padding: 20px;
-    border: 2px dashed var(--bleu-dreux);
-    border-radius: 10px;
-    text-align: left;
-    background: #f9f9f9;
+.statut-abandonnée, .statut-abandonnee {
+    background-color: rgba(235, 47, 6, 0.1);
+    color: var(--danger-color);
+    border: 1px solid rgba(235, 47, 6, 0.2);
 }
 
-/* Rôles Admin */
-.role-badge-admin {
-    color: #e74c3c;
-    font-weight: bold;
-}
-
-.role-badge-user {
-    color: #7f8c8d;
-}
-
-/* FORMULAIRE DE MODIFICATION AJAX */
-#ajax-response {
-    display: none;
-    padding: 8px;
-    margin-bottom: 12px;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 0.9em;
-    text-align: center;
-}
-
-#ajax-profile-form p {
-    margin-bottom: 8px;
-}
-
-#ajax-profile-form .p-adresse {
-    margin-top: 8px;
-}
-
-#ajax-profile-form input {
-    padding: 4px;
-    width: 70%;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-#ajax-profile-form .btn-submit-ajax {
-    margin-top: 12px;
-    padding: 8px 15px;
-    background-color: #0055A4; /* Bleu Dreux */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* --- filtres --- */
-.extra-filters-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 20px;
-    padding: 12px;
-    background-color: var(--blanc);
-    border-radius: 6px;
-    box-shadow: var(--shadow-soft);
-}
-
-.extra-filter-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.95em;
-}
-
-.extra-filter-group span {
-    font-weight: bold;
-    color: #333;
-}
-
-.extra-filter-group label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.sort-dropdown {
-    padding: 5px 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: white;
-    cursor: pointer;
-    font-family: inherit;
-}
-
-.no-match {
-    grid-column: 1 / -1;
-    text-align: center;
-    font-weight: bold;
-    padding: 30px;
-    color: #666;
+.delivery-subtitle {
+    margin: 20px 0 10px 0;
+    font-size: 1.4rem;
+    border-left: 5px solid var(--jaune-or);
+    padding-left: 10px;
 }
