@@ -3,7 +3,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Interception tactique pour retirer un article du panier
 if (isset($_GET['action']) && $_GET['action'] === 'retirer' && isset($_GET['id'])) {
     $id_a_retirer = $_GET['id'];
     if (isset($_SESSION['panier'][$id_a_retirer])) {
