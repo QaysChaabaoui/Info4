@@ -24,10 +24,10 @@ if ($commande_cible) {
     $_SESSION['panier'] = [];
     $_SESSION['modification_commande_id'] = $commande_cible['id'];
 
-    // CORRECTION : On utilise la clé 'total' conforme à ton commandes.json
+    // On utilise la clé 'total'
     $_SESSION['montant_deja_paye'] = (float) $commande_cible['total'];
 
-    // ALGORITHME DE DÉCOUPAGE : Recréer un vrai panier d'articles modifiables
+    // Recréer un vrai panier d'articles modifiables
     $chaine_articles = $commande_cible['articles'];
     $tableau_decoupe = explode(', ', $chaine_articles);
 
