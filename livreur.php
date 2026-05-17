@@ -85,8 +85,42 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
         </section>
     </main>
 
+    <script>
+        // Écouter les changements sur le menu déroulant de statut de livraison
+        document.querySelectorAll('.select-delivery-status').forEach(select => {
+            select.addEventListener('change', function() {
+                // On récupère la ligne (tr) correspondante pour extraire l'ID de la commande
+                const tr = this.closest('tr');
+                const idCommande = tr.cells[0].innerText.trim();
+                const nouveauStatut = this.value;
+
+                // Préparation et envoi de la requête asynchrone AJAX
+                const formData = new FormData();
+                formData.append('id', idCommande);
+                formData.append('statut', nouveauStatut);
+
+                const xhr = new XMLHttpRequest();
+                // On réutilise le script de traitement universel qu'on a créé pour la cuisine
+                xhr.open('POST', 'modifier_statut_commande.php', true);
+                
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Feedback visuel rapide en console
+                        console.log("Livreur AJAX : " + xhr.responseText);
+                        
+                        // Optionnel : On met à jour visuellement le badge de statut de la ligne
+                        const labelStatut = tr.querySelector('.label-statut');
+                        if (labelStatut) {
+                            labelStatut.innerText = nouveauStatut;
+                            // Met à jour la classe CSS pour la couleur du badge
+                            labelStatut.className = 'label-statut statut-' + nouveauStatut.toLowerCase().replace(' ', '-');
+                        }
+                    }
+                };
+                xhr.send(formData);
+            });
+        });
+    </script>
     <?php require_once('includes/footer.php'); ?>
 </body>
 </html>
-
-
