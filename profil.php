@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// On vérifie quel profil afficher AVANT d'afficher le menu
+// On vérifie quel profil afficher avant d'afficher le menu
 $email_cible = $_GET['email'] ?? $_SESSION['user_login'] ?? null;
 
 if (!$email_cible) {
@@ -187,11 +187,11 @@ require_once('includes/header.php');
                 if (xhr.readyState === 4) {
                     responseDiv.style.display = 'block';
                     if (xhr.status === 200) {
-                        responseDiv.style.backgroundColor = '#2ecc71'; // Vert terrain
+                        responseDiv.style.backgroundColor = '#2ecc71'; 
                         responseDiv.style.color = 'white';
                         responseDiv.innerHTML = xhr.responseText;
                     } else {
-                        responseDiv.style.backgroundColor = '#e74c3c'; // Rouge carton
+                        responseDiv.style.backgroundColor = '#e74c3c'; 
                         responseDiv.style.color = 'white';
                         responseDiv.innerHTML = '⚠️ Erreur lors de la mise à jour.';
                     }
@@ -206,7 +206,7 @@ require_once('includes/header.php');
                 const idCommande = tr.cells[0].innerText.trim();
                 const noteSelectionnee = this.value;
 
-                if (noteSelectionnee === "") return; // Si l'utilisateur clique sur "Noter...", on fait rien
+                if (noteSelectionnee === "") return; 
 
                 const formData = new FormData();
                 formData.append('id', idCommande);
@@ -217,7 +217,6 @@ require_once('includes/header.php');
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         console.log("Note AJAX : " + xhr.responseText);
-                        // Une fois noté, on peut verrouiller le select pour éviter de renoter
                         select.disabled = true;
                     }
                 };
