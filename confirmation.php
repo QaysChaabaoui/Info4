@@ -18,10 +18,15 @@ if (isset($_GET['status']) && isset($_GET['control'])) {
 
     if ($control_calcul === $control_recu && $status === 'accepted') {
         $paiement_valide = true;
-       if (isset($_GET['mod_id']) && isset($_SESSION['panier'])) {
-            $mod_id = $_GET['mod_id'];
-            $total_global = $_GET['total_global'];
-            
+        if (isset($_SESSION['modification_commande_id']) && isset($_SESSION['panier'])) {
+            $mod_id = $_SESSION['modification_commande_id'];
+
+            // On calcule le nouveau total global directement depuis les articles du panier actuel
+            $calcul_total_global = 0;
+            foreach ($_SESSION['panier'] as $item) {
+                $calcul_total_global += $item['prix'] * $item['quantite'];
+            }
+
             $toutes_commandes = json_decode(file_get_contents("data/commandes.json"), true) ?? [];
             foreach ($toutes_commandes as &$cmd) {
                 if ($cmd['id'] == $mod_id) {
@@ -30,11 +35,11 @@ if (isset($_GET['status']) && isset($_GET['control'])) {
                         $liste_noms[] = $item['quantite'] . "x " . $item['nom'];
                     }
                     $cmd['articles'] = implode(', ', $liste_noms);
-                    $cmd['montant'] = $total_global;
+                    $cmd['total'] = $calcul_total_global; // Utilise la bonne clé 'total' de ton JSON
                     break;
                 }
             }
-            file_put_contents("data/commandes.json", json_encode($toutes_commandes, JSON_PRETTY_PRINT));
+            file_put_contents("data/commandes.json", json_encode($toutes_commandes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         }
 
         unset($_SESSION['panier']);
@@ -46,25 +51,30 @@ if (isset($_GET['status']) && isset($_GET['control'])) {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Confirmation - FC Burger Dreux</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <main>
         <section class="login-card" style="margin-top: 50px;">
             <?php if ($paiement_valide): ?>
                 <h2 style="color: var(--vert-terrain);">⚽ Commande Validée !</h2>
                 <p>Ton paiement a été accepté par CYBank. Le restaurateur prépare ton match.</p>
-                <a href="index.php" class="btn-checkout" style="display: block; margin-top: 20px; text-decoration: none;">Retour au Stade</a>
+                <a href="index.php" class="btn-checkout"
+                    style="display: block; margin-top: 20px; text-decoration: none;">Retour au Stade</a>
             <?php else: ?>
                 <h2 style="color: #ff4757;">❌ Erreur de Paiement</h2>
                 <p>Le paiement a été refusé ou les données sont corrompues.</p>
-                <a href="panier.php" class="btn-login" style="display: block; margin-top: 20px; text-decoration: none;">Réessayer le panier</a>
+                <a href="panier.php" class="btn-login"
+                    style="display: block; margin-top: 20px; text-decoration: none;">Réessayer le panier</a>
             <?php endif; ?>
         </section>
     </main>
     <?php require_once('includes/footer.php'); ?>
 </body>
+
 </html>
