@@ -1,7 +1,7 @@
 <?php
 require_once('includes/header.php');
 
-// 🛡️ Sécurité : Il faut être connecté pour accéder à l'après-match
+// Sécurité : Il faut être connecté pour accéder à l'après-match
 if (!isset($_SESSION['user_login'])) {
     header("Location: index.php");
     exit();
@@ -11,7 +11,7 @@ $client_actuel = $_SESSION['user_login']; // Email/Login du supporter connecté
 $nom_joueur = isset($_SESSION['user_nom']) ? $_SESSION['user_nom'] : "Anonyme";
 $chemin_json = "data/commandes.json";
 
-// 📥 1. TRAITEMENT DE L'ENVOI DU RAPPORT TACTIQUE (NOTATION)
+// TRAITEMENT DE L'ENVOI DU RAPPORT 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     $id_cmd = $_POST['id_commande'];
     $note_selectionnee = $_POST['note'] ?? '';
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
                 // On injecte les nouvelles clés de notation dans la commande
                 $cmd['note'] = $note_selectionnee;
                 $cmd['commentaire'] = htmlspecialchars($analyse_texte);
-                $cmd['supporter_nom'] = $nom_joueur; // Stocke le nom pour l'affichage du Kop
+                $cmd['supporter_nom'] = $nom_joueur; 
 
                 $mis_a_jour = true;
                 break;
@@ -43,13 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande'])) {
     }
 }
 
-// 📖 2. CHARGEMENT ET FILTRAGE DES COMMANDES POUR L'AFFICHAGE
+// CHARGEMENT ET FILTRAGE DES COMMANDES POUR L'AFFICHAGE
 $commandes = [];
 if (file_exists($chemin_json)) {
     $commandes = json_decode(file_get_contents($chemin_json), true) ?? [];
 }
 
-// On isole les matchs livrés de CE client qui attendent une note
 $matchs_a_noter = [];
 foreach ($commandes as $cmd) {
     if (isset($cmd['client']) && $cmd['client'] === $client_actuel && strtoupper($cmd['statut'] ?? '') === 'LIVRÉE' && !isset($cmd['note'])) {
@@ -145,7 +144,7 @@ foreach ($commandes as $cmd) {
                             endif;
                         endforeach;
 
-                        // Sécurité : Si aucune commande n'a encore été notée dans le JSON, on garde tes exemples d'origine
+                        // Sécurité : Si aucune commande n'a encore été notée dans le JSON, on garde les exemples d'origine
                         if (!$avis_trouve):
                             ?>
                             <tr>
