@@ -1,71 +1,81 @@
-# ⚽ FC Burger Dreux 🍔
+# ⚽ FC Burger Dreux 🍔 — Phase 4 (Sprint Final)
 
-Bienvenue sur le dépôt du projet **FC Burger Dreux**, une application web de restauration rapide dynamique et asynchrone pensée autour de l'univers du football et de l'identité de la ville de Dreux. 
+Bienvenue sur le dépôt officiel du projet **FC Burger Dreux**, une application web complète, dynamique et asynchrone dédiée à la restauration rapide. Conçu autour d'une charte sémantique immersive issue du monde du football, le site associe l'identité sportive locale de la ville de Dreux à une architecture de développement moderne et sécurisée.
 
-**Projet académique réalisé par :** Chaabaoui Qays & Madrassi Ayman (CY Tech)
+**Projet académique réalisé par :** Chaabaoui Qays & Madrassi Ayman (CY Tech — Pré-Ing2)
 
 ---
 
 ## 📋 Description du Projet
-FC Burger Dreux est une plateforme de commande en ligne simulant le fonctionnement tactique d'un véritable fast-food. Le site propose une expérience immersive grâce à une identité visuelle marquée inspirée d'un club de sport (le "Stade", les "Titulaires", la "Licence Joueur") tout en intégrant des fonctionnalités e-commerce avancées.
+FC Burger Dreux gère l'intégralité du cycle de vie d'une commande de restauration : depuis la sélection des produits par le client jusqu'au suivi de la livraison, en passant par l'authentification sécurisée, la validation du panier et le paiement bancaire en ligne.
 
-Le projet intègre désormais l'ensemble des exigences de la **Phase 3**, basculant l'application d'un fonctionnement classique vers une architecture asynchrone fluide, sécurisée et sans rechargement de page.
+L'application intègre toutes les exigences de la **Phase 4**, validant la transition d'un site web classique vers une application asynchrone hautement interactive, conforme aux exigences de sécurité, d'accessibilité et de séparation stricte des préoccupations (HTML/PHP/CSS/JS).
 
-## ✨ Fonctionnalités Principales (Mise à jour Phase 3)
-* **Menu Dynamique ("La Compo") :** Affichage des produits classés par postes tactiques (Attaque, Défense, Staff Technique) générés via un fichier JSON.
-* **Architecture Asynchrone (AJAX) :** Les interactions clés (gestion des statuts de cuisine, assignation des livreurs, blocage utilisateur et notation) s'exécutent en arrière-plan sans recharger la page.
-* **Système de Rôles & Espaces Dédiés :** Affichage conditionnel de la navigation selon la licence de l'utilisateur :
-  * 🟢 **Client (Supporter)** : Accès au panier, à l'historique et au système de **modification de commande payée** avec ajustement financier.
-  * 👨‍🍳 **Restaurateur (Chef)** : Gestion de la cuisine et assignation des livreurs en temps réel via AJAX.
-  * 🛵 **Livreurs** : Validation des étapes de livraison ("En route", "Livrée") en direct depuis le terrain.
-  * 👑 **Admin (Coach)** : Tableau de bord de modération pour activer/bloquer les comptes de l'effectif.
-* **Bouclier de Sécurité (Expulsion Instantanée) :** Déconnexion immédiate et destruction absolue de la session d'un utilisateur dès qu'il est marqué comme "bloqué" par l'administrateur.
-* **Évaluation Tactique :** Système de notation unique par commande livrée, verrouillé après soumission pour éviter le spam.
-* **Tunnel de Paiement :** Interfaçage avec l'API fictive CYBank gérant le paiement du reliquat en cas de modification du panier.
+---
 
-## 🛠️ Technologies Utilisées
-* **Frontend :** HTML5, CSS3 unifié (Conforme à la Charte Graphique : Polices *Kanit* & *Roboto*, Bleu Dreux `#0055A4`), Vanila JavaScript (Fetch / XMLHttpRequest AJAX).
-* **Backend :** PHP (Gestion des sessions, structures de contrôle, double verrou de sécurité).
-* **Base de Données :** NoSQL natif via fichiers plats JSON (`json_encode` & `json_decode`).
+## ✨ Fonctionnalités Majeures
 
-## 📁 Architecture des Données
-Le stockage repose sur trois fichiers principaux situés dans le répertoire `/data` :
-1. `data/Menu.json` : Catalogue complet des produits (Burgers, Snacks, Boissons, Sauces).
-2. `data/commandes.json` : Suivi centralisé des feuilles de match (ID, client, composition, statuts en majuscules, livreur assigné et note).
-3. `data/profil.json` : Registre des utilisateurs incluant le champ `statut_compte` (`actif`/`bloqué`).
+### 🎲 1. L'Innovation : La "Compo Mystère du Coach"
+Développée spécifiquement pour la Phase 4 pour répondre au critère d'originalité du cahier des charges, cette option permet aux supporters indécis de laisser le "Coach" composer leur menu de manière aléatoire.
+* **Sélection Tactique :** Pioche automatiquement un produit dans la catégorie `Attaquants` (Burgers) et un produit sur le `Banc` (Boissons/Snacks).
+* **Avantage Financier :** Applique une réduction immédiate de **10 %** calculée dynamiquement côté serveur.
+* **Intégration Panier :** Gère de manière fluide l'incrémentation des quantités en cas de doublon dans la session active.
 
-## 🚀 Installation & Lancement
-Comme ce projet utilise PHP, il nécessite un serveur local pour fonctionner.
+### 🔍 2. Moteur de Recherche Asynchrone Cumulatif (AJAX)
+* **Recherche de l'Accueil (`index.php`) :** Un formulaire redirige l'utilisateur vers le catalogue produit en transmettant le mot-clé par méthode `GET`. Le JavaScript intercepte cette valeur au chargement pour afficher instantanément les résultats triés.
+* **Recherche au Clavier (`menu.php`) :** Filtrage en temps réel à chaque saisie de caractère (événement `input`) combiné dynamiquement avec les filtres de régimes (Végétarien, Sans Gluten, Sans Lactose) et de saveurs (Épicé, Sucré).
 
-1. **Prérequis :** Installez un serveur local comme **XAMPP** ou **WampServer**.
-2. **Déploiement :** Placez le dossier `projet` à l'intérieur du répertoire web de votre serveur local :
-   * Sur XAMPP : `C:/xampp/htdocs/projet/`
-   * Sur WampServer : `C:/wamp64/www/projet/`
-3. **Démarrage :** Lancez le panneau de contrôle de votre serveur et démarrez le module **Apache**.
-4. **Accès :** Ouvrez votre navigateur internet et accédez à l'adresse : `http://localhost/projet/`
+### 🛡️ 3. Sécurité et Bouclier d'Expulsion Instantanée
+* **Application des Prix :** Aucun calcul monétaire n'est confié au client. Les réductions de la "Compo Mystère" sont recalculées de manière hermétique en PHP côté serveur lors de l'injection en session pour bloquer toute tentative de falsification HTML.
+* **Bouclier Anti-Faute :** Le fichier `header.php` inspecte de manière asynchrone l'état du compte de l'utilisateur connecté. Si l'administrateur passe son statut à `bloqué`, l'utilisateur est immédiatement déconnecté, sa session est entièrement détruite, et il est expulsé vers l'accueil.
 
-## 🗂️ Structure du Répertoire (Phase 3)
+---
+
+## 👥 Profils d'Utilisateurs & Droits d'Accès
+
+| Rôle | Espace Dédié | Actions Autorisées | Technologies Clés |
+| :--- | :--- | :--- | :--- |
+| 🟢 **Supporter** *(Client)* | `profil.php` \| `panier.php` | Consulter la carte, commander, modifier une commande payée (paiement du reliquat via l'API CYBank), noter un match livré. | Sessions PHP, AJAX POST, MD5 Verification |
+| 👨‍🍳 **Chef** *(Restaurateur)* | `restaurateur.php` | Suivi des commandes, modification des statuts de préparation en cuisine, assignation des livreurs disponibles. | AJAX XMLHttpRequests, FormData |
+| 🛵 **Titulaire** *(Livreur)* | `livreur.php` | Prise en charge des commandes prêtes, mise à jour de l'état de livraison ("En route", "Livrée", "Abandonnée"). | Interface Mobile responsive, Suppression DOM dynamique |
+| 👑 **Coach** *(Admin)* | `admin.php` | Consultation de l'ensemble de l'effectif, accès aux fiches de licences, modération des accès (blocage/déblocage instantané). | Requêtes Asynchrones Ciblées |
+
+---
+
+## 🛠️ Technologies & Bonnes Pratiques
+* **Architecture Clean-Code (Séparation Front/Back) :** Aucun attribut `style="..."` n'est toléré dans les fichiers PHP/HTML de la Phase 4. Les structures de positionnement (comme le conteneur `.compo-mystere-container`) sont isolées de manière externe dans `style.css`.
+* **Langages :** HTML5 validé, CSS3 natif (variables `:root`, Flexbox, Grid), JavaScript Vanilla, PHP 8.
+* **Stockage de Données :** Système de fichiers plats NoSQL standardisés au format JSON (`Menu.json`, `commandes.json`, `profil.json`).
+
+---
+
+## 📂 Structure du Répertoire Remaniée
+
 ```text
 projet/
 ├── data/
-│   ├── Menu.json                     # Catalogue des produits
-│   ├── commandes.json                # Base de données des commandes et notes
-│   └── profil.json                   # Base de données des utilisateurs et statuts
+│   ├── Menu.json                 # Catalogue des plats (Attaquants, Défense, Banc, Spianouch)
+│   ├── commandes.json            # Registre centralisé des commandes, status et notations
+│   └── profil.json               # Comptes de l'effectif, mots de passe et rôles
 ├── includes/
-│   ├── header.php                    # Navigation dynamique + Bouclier d'expulsion
-│   └── footer.php                    # Pied de page officiel du club
-├── img/                              # Iconographies et visuels des burgers
-├── index.php                         # Accueil (Le Stade)
-├── menu.php                          # Catalogue dynamique (La Compo)
-├── panier.php                        # Récapitulatif du panier actuel
-├── paiement.php                      # Passerelle bancaire CYBank ajustée
-├── confirmation.php                  # Validation finale des écritures
-├── restaurateur.php                  # Interface Cuisine + scripts AJAX
-├── livreur.php                       # Interface Livreur + scripts AJAX
-├── admin.php                         # Espace Coach (Modération des comptes)
-├── profil.php                        # Profil client (Licence) + AJAX Étoiles
-├── modifier_statut_utilisateur.php   # Traitement AJAX : Blocage de compte
-├── modifier_statut_commande.php      # Traitement AJAX : Cuisine & Livraisons
-├── enregistrer_note.php              # Traitement AJAX : Enregistrement de l'évaluation
-├── style.css                         # Feuille de style complète unifiée
-└── README.md                         # Documentation du projet
+│   ├── header.php                # Barre de navigation adaptative + Bouclier anti-compte bloqué
+│   ├── footer.php                # Pied de page + scripts globaux (Mode sombre, force MDP, oeil)
+│   ├── fonctions.php             # Librairie d'outils PHP d'accès aux fichiers
+│   └── getapikey.php             # Générateur de clés sécurisées pour l'API CYBank
+├── img/                          # Visuels et photographies des burgers et snacks
+├── index.php                     # Accueil du site (Le Stade) avec formulaire de recherche connecté
+├── menu.php                      # Page principale de la carte intégrant la Compo Mystère et la recherche AJAX
+├── compo_mystere.php             # ROUTEUR INNOVATION : Traitement serveur de la roulette aléatoire (-10%)
+├── filtrer_menu.php              # MOTEUR AJAX : Filtrage textuel, catégoriel, allergènes et tri des prix
+├── panier.php                    # Gestion de la compo actuelle et planification du timing du match
+├── paiement.php                  # Liaison transactionnelle sécurisée vers la plateforme CYBank
+├── confirmation.php              # Traitement du code de contrôle MD5 et écriture finale dans le JSON
+├── restaurateur.php              # Terminal de contrôle de la cuisine ( AJAX Statuts & Livreurs )
+├── livreur.php                   # Terminal simplifié mobile pour la validation des livraisons sur le terrain
+├── admin.php                     # Bureau du Coach : Modération asynchrone des profils de l'effectif
+├── profil.php                    # Espace Licence joueur : Modification d'informations et enregistrement des notes
+├── modifier_statut_utilisateur.php # Script de traitement AJAX : Blocage de compte administrateur
+├── modifier_statut_commande.php    # Script de traitement AJAX : Avancement cuisine et livreurs
+├── enregistrer_note.php            # Script de traitement AJAX : Sécurisation des avis et étoiles
+├── style.css                     # Feuille de style unifiée (contenant les thèmes clair et sombre)
+└── README.md                     # Documentation complète du projet
