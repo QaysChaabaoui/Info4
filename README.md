@@ -1,4 +1,4 @@
-# ⚽ FC Burger Dreux 🍔 — Phase 4 (Sprint Final)
+# ⚽ FC Burger Dreux 🍔 — Phase 4 
 
 Bienvenue sur le dépôt officiel du projet **FC Burger Dreux**, une application web complète, dynamique et asynchrone dédiée à la restauration rapide. Conçu autour d'une charte sémantique immersive issue du monde du football, le site associe l'identité sportive locale de la ville de Dreux à une architecture de développement moderne et sécurisée.
 
