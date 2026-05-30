@@ -54,13 +54,18 @@ $plats = $donnees['plats'];
                     </select>
                 </div>
             </div>
+            <div class="compo-mystere-container">
+                <a href="compo_mystere.php" class="btn-action">
+                    🎲 Tenter la Compo Mystère du Coach (-10% Tactique)
+                </a>
+            </div>
         </section>
 
         <section class="search-section">
             <h2>Trouve ton match 🍔</h2>
             <div class="search-box">
-                <input type="text" placeholder="Rechercher un burger...">
-                <button>Go !</button>
+                <input type="text" id="search-burger" placeholder="Rechercher un burger...">
+                <button type="button" id="btn-search-go">Go !</button>
             </div>
         </section>
 
@@ -92,6 +97,8 @@ $plats = $donnees['plats'];
             box.addEventListener('change', lancerTactiqueAjax);
         });
         document.getElementById('menu-sort').addEventListener('change', lancerTactiqueAjax);
+        document.getElementById('search-burger').addEventListener('input', lancerTactiqueAjax);
+        document.getElementById('btn-search-go').addEventListener('click', lancerTactiqueAjax);
 
         // 3. Fonction pour lancer l'Ajax et mettre à jour la grille sans recharger la page
         function lancerTactiqueAjax() {
@@ -101,7 +108,6 @@ $plats = $donnees['plats'];
                 gouts: []
             };
 
-            // On remplit les tableaux de régimes et de goûts selon les cases cochées
             document.querySelectorAll('.menu-checkbox:checked').forEach(box => {
                 if (box.name === 'regime') structureFiltres.regimes.push(box.value);
                 if (box.name === 'gout') structureFiltres.gouts.push(box.value);
@@ -109,19 +115,21 @@ $plats = $donnees['plats'];
 
             let triActif = document.getElementById('menu-sort').value;
 
+            // Récupération du texte de recherche
+            let rechercheTexte = document.getElementById('search-burger').value;
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'filtrer_menu.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
             xhr.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
-                    // On injecte les cartes filtrées dans ta grille d'origine
                     document.getElementById('product-grid').innerHTML = this.responseText;
                 }
             };
 
-            // On envoie les filtres et le tri sous forme de paramètres POST
-            let parametres = "filtres=" + JSON.stringify(structureFiltres) + "&tri=" + triActif;
+            // Envoi des paramètres de filtre, tri et recherche au serveur
+            let parametres = "filtres=" + JSON.stringify(structureFiltres) + "&tri=" + triActif + "&recherche=" + encodeURIComponent(rechercheTexte);
             xhr.send(parametres);
         }
     </script>
