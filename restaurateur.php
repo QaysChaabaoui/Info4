@@ -65,7 +65,13 @@ $livreurs = array_filter($utilisateurs, function ($u) {
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn-detail">📄 Voir</a>
+                                    <a href="#" class="btn-detail btn-voir" data-id="<?php echo $cmd['id']; ?>"
+                                        data-articles="<?php echo htmlspecialchars($cmd['articles']); ?>"
+                                        data-client="<?php echo htmlspecialchars($cmd['client'] ?? 'Supporter'); ?>"
+                                        data-timing="<?php echo htmlspecialchars($cmd['timing']); ?>"
+                                        data-statut="<?php echo htmlspecialchars($cmd['statut']); ?>">
+                                        📄 Voir
+                                    </a>
                                 </td>
                                 <td>
                                     <select class="select-statut-cuisine">
@@ -146,6 +152,31 @@ $livreurs = array_filter($utilisateurs, function ($u) {
             };
             xhr.send(formData);
         }
+    </script>
+    <script>
+        // Écouteur tactique sur tous les liens "Voir" du tableau
+        document.querySelectorAll('.btn-voir').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // Bloque le saut de page provoqué par le '#'
+
+                // Extraction des données de la ligne cliquée
+                let id = this.getAttribute('data-id');
+                let client = this.getAttribute('data-client');
+                let timing = this.getAttribute('data-timing');
+                let statut = this.getAttribute('data-statut');
+                let articles = this.getAttribute('data-articles');
+
+                // Affichage instantané dans la boîte native du navigateur
+                alert(
+                    "📋 RAPPORT DE MATCH : " + id + "\n" +
+                    "----------------------------------------\n" +
+                    "👤 Supporter : " + client + "\n" +
+                    "⏱️ Timing demandé : " + timing + "\n" +
+                    "📊 Statut sur le terrain : " + statut + "\n\n" +
+                    "🍔 COMPOSITION DU MENU : \n" + articles
+                );
+            });
+        });
     </script>
     <?php require_once('includes/footer.php'); ?>
 </body>
