@@ -64,7 +64,8 @@ $plats = $donnees['plats'];
         <section class="search-section">
             <h2>Trouve ton match 🍔</h2>
             <div class="search-box">
-                <input type="text" id="search-burger" placeholder="Rechercher un burger...">
+                <input type="text" id="search-burger" placeholder="Rechercher un burger..."
+                    value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>">
                 <button type="button" id="btn-search-go">Go !</button>
             </div>
         </section>
@@ -82,17 +83,15 @@ $plats = $donnees['plats'];
         // Écouteurs sur les boutons de catégorie (Attaquants, Défense, etc.)
         document.querySelectorAll('.filter-btn').forEach(button => {
             button.addEventListener('click', function () {
-                // Gestion de la classe active d'origine
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
-                // On retient la catégorie du bouton
                 categorieChoisie = this.getAttribute('data-cat');
                 lancerTactiqueAjax();
             });
         });
 
-        // Écouteurs sur les cases à cocher et le tri (Prix croissant/décroissant)
+        // Écouteurs sur les cases à cocher, le tri, la frappe clavier et le clic Go
         document.querySelectorAll('.menu-checkbox').forEach(box => {
             box.addEventListener('change', lancerTactiqueAjax);
         });
@@ -114,8 +113,6 @@ $plats = $donnees['plats'];
             });
 
             let triActif = document.getElementById('menu-sort').value;
-
-            // Récupération du texte de recherche
             let rechercheTexte = document.getElementById('search-burger').value;
 
             var xhr = new XMLHttpRequest();
@@ -128,9 +125,13 @@ $plats = $donnees['plats'];
                 }
             };
 
-            // Envoi des paramètres de filtre, tri et recherche au serveur
             let parametres = "filtres=" + JSON.stringify(structureFiltres) + "&tri=" + triActif + "&recherche=" + encodeURIComponent(rechercheTexte);
             xhr.send(parametres);
+        }
+
+        // Lancer une recherche si un texte est déjà présent au chargement de la page
+        if (document.getElementById('search-burger').value.trim() !== "") {
+            lancerTactiqueAjax();
         }
     </script>
 
