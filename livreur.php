@@ -74,7 +74,13 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
                                         ?>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn-view-delivery">📄 Voir</a>
+                                        <a href="#" class="btn-view-delivery btn-voir" data-id="<?php echo $cmd['id']; ?>"
+                                            data-client="<?php echo htmlspecialchars($cmd['client']); ?>"
+                                            data-adresse="<?php echo htmlspecialchars($adresse); ?>"
+                                            data-statut="<?php echo htmlspecialchars($cmd['statut']); ?>"
+                                            data-articles="<?php echo htmlspecialchars($cmd['articles']); ?>">
+                                            📄 Voir
+                                        </a>
                                     </td>
                                     <td>
                                         <span
@@ -141,6 +147,31 @@ $utilisateurs = json_decode(file_get_contents("data/profil.json"), true);
                     }
                 };
                 xhr.send(formData);
+            });
+        });
+    </script>
+    <script>
+        // Écouteurs sur les boutons "Voir" pour afficher les détails de la commande dans une alerte
+        document.querySelectorAll('.btn-voir').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // On empêche le comportement par défaut du lien
+
+                // Extraction des données de la commande
+                let id = this.getAttribute('data-id');
+                let client = this.getAttribute('data-client');
+                let adresse = this.getAttribute('data-adresse');
+                let statut = this.getAttribute('data-statut');
+                let articles = this.getAttribute('data-articles');
+
+                // Affichage d'une alerte avec les détails de la commande pour le livreur
+                alert(
+                    "📦 FEUILLE DE ROUTE LIVREUR : " + id + "\n" +
+                    "----------------------------------------\n" +
+                    "👤 Client (Supporter) : " + client + "\n" +
+                    "📍 Adresse de Livraison : " + adresse + "\n" +
+                    "📊 État de la course : " + statut + "\n\n" +
+                    "🍔 ARTICLES À LIVRER :\n" + articles
+                );
             });
         });
     </script>
