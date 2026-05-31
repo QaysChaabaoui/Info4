@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FC Burger Dreux - Accueil</title>
+    <title>FC Burger Dreux - Le Stade (Accueil)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -114,10 +114,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
         <section class="search-section">
             <h2>Trouve ton match 🍔</h2>
-            <div class="search-box">
-                <input type="text" placeholder="Rechercher un burger...">
-                <button>Go !</button>
-            </div>
+            <form action="menu.php" method="GET" class="search-box">
+                <input type="text" name="search" placeholder="Rechercher un burger..." required>
+                <button type="submit">Go !</button>
+            </form>
         </section>
     </main>
 
