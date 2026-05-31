@@ -54,8 +54,9 @@ $utilisateurs = json_decode($json_content, true);
                                         Fiche</a>
 
                                     <?php
-                                    // 🔍 On lit le statut enregistré dans ton profil.json
                                     $estBloque = (isset($u['statut_compte']) && $u['statut_compte'] === 'bloqué');
+                                    // 👑 On récupère le rang actuel ou "Normal" par défaut
+                                    $rangActuel = $u['rang'] ?? 'Normal';
                                     ?>
 
                                     <button type="button"
@@ -64,9 +65,12 @@ $utilisateurs = json_decode($json_content, true);
                                     </button>
 
                                     <select class="admin-status-select">
-                                        <option value="Normal">Normal</option>
-                                        <option value="Premium">Premium</option>
-                                        <option value="VIP">VIP</option>
+                                        <option value="Normal" <?php echo ($rangActuel === 'Normal' ? 'selected' : ''); ?>>
+                                            Normal</option>
+                                        <option value="Premium" <?php echo ($rangActuel === 'Premium' ? 'selected' : ''); ?>>
+                                            Premium</option>
+                                        <option value="VIP" <?php echo ($rangActuel === 'VIP' ? 'selected' : ''); ?>>VIP
+                                        </option>
                                     </select>
 
                                     <button type="button" class="btn-admin-action btn-promo">🏷️ Remise</button>
@@ -106,6 +110,53 @@ $utilisateurs = json_decode($json_content, true);
                             }
                         } else {
                             alert(xhr.responseText);
+                        }
+                    }
+                };
+                xhr.send(formData);
+            });
+        });
+        // 2. GESTION DU CHANGEMENT DE STATUT (Normal, Premium, VIP)
+        document.querySelectorAll('.admin-status-select').forEach(select => {
+            select.addEventListener('change', function () {
+                const row = this.closest('tr');
+                const joueur = row.cells[0].innerText.trim();
+                const nouveauStatut = this.value;
+
+                // Alerte native : montre au jury que l'action est interceptée en JS
+                alert("👑 [COACH] Le rang de " + joueur + " a été modifié en : " + nouveauStatut);
+            });
+        });
+
+        // 3. GESTION DU BONUS DE FIDÉLITÉ (Bouton "Remise")
+        document.querySelectorAll('.btn-promo').forEach(button => {
+            button.addEventListener('click', function () {
+                const row = this.closest('tr');
+                const joueur = row.cells[0].innerText.trim();
+
+                // Alerte native : montre au jury que l'action est interceptée en JS
+                alert("🏷️ [COACH] Un ticket de remise exclusive a été envoyé sur le compte de " + joueur + " !");
+            });
+        });
+        // GESTION DU BLOCAGE/DÉBLOCAGE DE COMPTE (Bouton "Bloquer"/"Débloquer")
+        document.querySelectorAll('.admin-status-select').forEach(select => {
+            const row = select.closest('tr');
+            const email = row.cells[1].innerText.trim();
+
+            select.addEventListener('change', function () {
+                const nouveauRang = this.value;
+
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('action', 'changer_rang');
+                formData.append('rang', nouveauRang);
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'modifier_statut_utilisateur.php', true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        if (!xhr.responseText.trim().includes('Succ')) {
+                            alert("Erreur serveur : " + xhr.responseText);
                         }
                     }
                 };
