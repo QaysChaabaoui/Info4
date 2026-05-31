@@ -1,11 +1,14 @@
 <?php
-require_once('includes/header.php');
-
-// Sécurité : Il faut être connecté pour accéder à l'après-match
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['user_login'])) {
     header("Location: index.php");
     exit();
 }
+require_once('includes/header.php');
+
+$client_actuel = $_SESSION['user_login'];
 
 $client_actuel = $_SESSION['user_login']; // Email/Login du supporter connecté
 $nom_joueur = isset($_SESSION['user_nom']) ? $_SESSION['user_nom'] : "Anonyme";
