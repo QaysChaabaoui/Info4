@@ -23,13 +23,20 @@ $mis_a_jour = false;
 
 foreach ($utilisateurs as &$u) {
     if ($u['login'] === $email_cible) {
+
         if ($action === 'bloquer') {
             $u['statut_compte'] = 'bloqué';
-        } else {
+            $mis_a_jour = true;
+        } elseif ($action === 'debloquer') {
             $u['statut_compte'] = 'actif';
+            $mis_a_jour = true;
+        } elseif ($action === 'changer_rang') {
+            // 👑 Sauvegarde du nouveau rang (Normal, Premium, VIP)
+            $u['rang'] = $_POST['rang'] ?? 'Normal';
+            $mis_a_jour = true;
         }
-        $mis_a_jour = true;
-        break;
+
+        break; // On peut sortir de la boucle une fois que l'utilisateur ciblé a été trouvé et mis à jour
     }
 }
 
